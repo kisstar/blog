@@ -23,7 +23,7 @@ npm i
 
 然后运行 `npm run debug` 命令就可以启动项目了，那么这个启动命令到底做了什么？
 
-查看项目根目录下的 package.json 文件中，我们可以看到该命令最终执行的是 `egg-bin debug`，[egg-bin][egg-bin] 是基于 [common-bin][common-bin]（封装的 CLI 开发工具）开发的。
+查看项目根目录下的 package.json 文件中，我们可以看到该命令最终执行的是 `egg-bin debug`，[egg-bin][egg-bin] 是基于 [common-bin][common-bin] 封装的 CLI 开发工具。
 
 CommonBin 则又是在 [yargs][yargs]、[co][co] 等模块的基础上，抽象封装了一个命令行工具，提供了对 async/generator 特性的支持。
 
@@ -31,7 +31,7 @@ CommonBin 则又是在 [yargs][yargs]、[co][co] 等模块的基础上，抽象�
 
 ### common-bin
 
-CommonBin 的核心包括 `load()` 和 `start()` 方法，前者会加载指定目录下 JavaScript 文件，并将各个文件暴露的 Class 以文件名作为属性名存储在一个 Map 中。
+CommonBin 的核心包括 `load()` 和 `start()` 方法，前者会加载指定目录下的 JavaScript 文件，并将各个文件暴露的 Class 以文件名作为属性名存储在一个 Map 中。
 
 ```js
 // @file: common-bin/lib/command.js
@@ -88,13 +88,13 @@ class CommonBin {
 
       // 如果存在就获取对应的值进行实例化
       const command = this.getSubCommandInstance(Command, rawArgv);
-      // 调用实例上的 “DISPATCH” 方法，由于获取的值继承了 CommonBin，所以还会走到该方法
+      // 调用实例上的 “DISPATCH” 方法，由于获取的值也继承了 CommonBin，所以还会走到该方法
       // 由于参数在第一次处理时做了改变，所以会依次递归查找子命令
       yield command[DISPATCH]();
       return;
     }
 
-    // 此处会定义实例上 Map 中的命令
+    // 如果没有子命令时，就会在此处定义实例上 Map 中的命令
     // 同时也会判断是否是自动补全的操作，不是的话就会调用实例上的 run 方法进行处理
 
     yield this.helper.callFn(this.run, [context], this);
@@ -102,13 +102,14 @@ class CommonBin {
 }
 ```
 
-我们的处理逻辑会通过 `run()` 方法来实现，而参数就是实例上的 `context` 属性的值。另外，还可以重写 `errorHandler()` 方法来处理期间发生的错误。
+我们实际命令的处理逻辑会通过 `run()` 方法来实现，而参数就是实例上的 `context` 属性的值。另外，还可以重写 `errorHandler()` 方法来处理期间发生的错误。
 
 ### egg-bin debug
 
 回到 egg-bin，通过查看 package.json 文件，可以发现当我们执行 `egg-bin debug` 命令时就会执行 `bin/egg-bin.js` 文件。
 
 ```json
+// @file: egg-bin/package.json
 {
   "bin": {
     "egg-bin": "bin/egg-bin.js",
@@ -119,7 +120,14 @@ class CommonBin {
 }
 ```
 
-该文件的内容比较简单，主要是执行入口文件，此时会实例化 egg-bin 扩展的类，然后调用实例的 `start()` 方法。
+该文件的内容比较简单，主要是执行入口文件，此时会实例化 egg-bin 扩展的类，然后调用实例的 `start()` 方法：
+
+```js
+// @file: egg-bin/bin/egg-bin.js
+const Command = require('..');
+
+new Command().start();
+```
 
 实例化时会用到我们上面提到的 `load()` 方法将 `lib/cmd` 文件夹下的命令自动挂载到实例对象下面：
 
@@ -159,6 +167,17 @@ class DebugCommand {
 ```
 
 事实上，debug 命令继承了 dev 命令，其中“serverBin”就是在 dev 命令对应的文件中指定的，它指向的是 `../start-cluster` 文件。
+
+```js
+// @file: egg-bin/lib/cmd/dev.js
+class DevCommand extends Command {
+  constructor() {
+    // ...
+    this.serverBin = path.join(__dirname, '../start-cluster');
+    // ...
+  }
+}
+```
 
 在 `../start-cluster` 文件会加载有 `framework` 参数指定目录下的框架，并执行它暴露出来的 `startCluster()` 方法。
 
@@ -251,4 +270,980 @@ class Master extends EventEmitter {
 }
 ```
 
-其中，Worker 运行的是业务代码，负责处理真正的用户请求和定时任务的处理。
+其中，Worker 运行的是业务代码，负责处理真正的用户请求和定时任务的处理。接下来，我们就来看下服务是如何启动的。
+
+## Application
+
+在创建 Worker 进程时实例化了 Application 类来处理用户请求：
+
+```js
+// @file: egg-cluster/lib/app_worker.js
+const Application = require(options.framework).Application;
+const app = new Application(options);
+
+app.ready(startServer);
+
+function startServer() {
+  require('http')
+    .createServer(app.callback())
+    .listen(...args);
+}
+```
+
+该类来自于 egg 模块，陆续继承了 EggApplication（egg）、EggCore（egg-core）和 KoaApplication（koa）类。
+
+<img style="height: 300px;" :src="$withBase('/images/nodejs/egg-app.png')" alt="egg Application">
+
+根据继承关系会先初始化 KoaApplication，在 Koa 中主要是得到了 4 个核心对象（Application, Context, Request, Response) ：
+
+<img style="height: 300px;" :src="$withBase('/images/nodejs/koa.png')" alt="koa">
+
+然后是 EggCore。在 EggCore 的构造函数中创建了管理生命周期 `lifecycle` 的和加载器 `loader`，并且设置了 Controller 和 Service 属性。
+
+```js
+// @file: egg-core/lib/egg.js
+const EggConsoleLogger = require('egg-logger').EggConsoleLogger;
+const EGG_LOADER = Symbol.for('egg#loader');
+const Lifecycle = require('./lifecycle');
+
+class BaseContextClass {
+  constructor(ctx /* context instance */) {
+    this.ctx = ctx;
+    this.app = ctx.app;
+    this.config = ctx.app.config;
+    this.service = ctx.service;
+  }
+}
+
+class EggCore extends KoaApplication {
+  constructor(options = {}) {
+    super();
+    this.console = new EggConsoleLogger();
+    this.BaseContextClass = BaseContextClass;
+    // Base controller to be extended by controller in `app.controller`
+    this.Controller = this.BaseContextClass;
+    // Base service to be extended by services in `app.service`
+    this.Service = this.BaseContextClass;
+
+    this.lifecycle = new Lifecycle(/* ... */);
+    const Loader = this[EGG_LOADER];
+    this.loader = new Loader({
+      baseDir: options.baseDir,
+      app: this,
+      plugins: options.plugins,
+      logger: this.console,
+      serverScope: options.serverScope,
+      env: options.env,
+    });
+  }
+
+  get [EGG_LOADER]() {
+    return require('egg-core/lib/loader/egg_loader.js');
+  }
+}
+```
+
+接着是 EggApplication，这里会调用刚才创建的加载器上 `loadConfig()` 方法，然后再次设置了 Controller 和 Service 属性。
+
+```js
+// @file: egg/lib/egg.js
+class EggApplication extends EggCore {
+  constructor(options = {}) {
+    super(options);
+    this.loader.loadConfig();
+
+    // EggBaseContextClass 继承了上面见到的 BaseContextClass，只是额外设置了 logger 日志功能
+    this.Controller = EggBaseContextClass;
+    this.Service = EggBaseContextClass;
+  }
+}
+```
+
+最后回到 Application 的初始化，调用了加载器的 `load()` 方法。
+
+```js
+// @file: egg/lib/application.js
+const EGG_LOADER = Symbol.for('egg#loader');
+const AppWorkerLoader = require('egg/lib/loader/app_worker_loader.js');
+
+class Application extends EggApplication {
+  constructor(options = {}) {
+    super(options);
+    this.loader.load();
+  }
+
+  // 覆盖了最初在 egg-core 中设置的 Loader，也就是说上面调用的 loadConfig() 方法是 AppWorkerLoader 上的
+  get [EGG_LOADER]() {
+    return AppWorkerLoader;
+  }
+}
+```
+
+事实上，将我们创建的控制器和服务绑定到我们应用程序上的关键就在于这里的 AppWorkerLoader。
+
+### Loader
+
+AppWorkerLoader 继承自 EggLoader，主要是重写了 `loadConfig()` 方法，并添加了上面提到的 `load()` 方法。
+
+```js
+// @file: egg/lib/loader/app_worker_loader.js
+class AppWorkerLoader extends EggLoader {
+  // 先加载插件然后加载配置
+  loadConfig() {
+    this.loadPlugin();
+    super.loadConfig();
+  }
+
+  load() {}
+}
+```
+
+Egg 在 Koa 的基础上进行进一步增强最重要的就是基于一定的约定，根据功能差异将代码放到不同的目录下管理，EggLoader 实现了这套约定，并抽象了很多底层 API 可以进一步扩展。
+
+作为一个基类，EggLoader 根据文件加载的规则提供了一些内置的方法，如 `getEggPaths()` 可以用来获取框架目录：
+
+```js
+// @file: egg-core/lib/loader/egg_loader.js
+class EggLoader {
+  constructor(options) {
+    this.options = options;
+    this.app = this.options.app;
+    this.eggPaths = this.getEggPaths();
+  }
+
+  getEggPaths() {
+    const EggCore = require('../egg');
+    const eggPaths = [];
+
+    let proto = this.app;
+
+    // Loop for the prototype chain
+    while (proto) {
+      proto = Object.getPrototypeOf(proto);
+      if (proto === Object.prototype || proto === EggCore.prototype) {
+        break;
+      }
+
+      const eggPath = proto[Symbol.for('egg#eggPath')];
+      const realpath = fs.realpathSync(eggPath);
+
+      if (!eggPaths.includes(realpath)) {
+        eggPaths.unshift(realpath);
+      }
+    }
+
+    return eggPaths;
+  }
+}
+```
+
+EggLoader 本身并不会去执行自己暴露的一些方法，而是由继承类调用。如上，当上面的 `loadConfig()` 方法执行时会调用实例上的 `loadPlugin()` 方法加载插件。
+
+加载插件时找到应用和框架，加载 `config/plugin.js` 等文件，最后将所有合法插件配置对象赋值给加载器实例的 `plugins` 属性。
+
+```js
+// @file: egg-core/lib/loader/mixin/plugin.js
+module.exports = {
+  loadPlugin() {
+    // loader plugins from application
+    const appPlugins = this.readPluginConfigs(
+      path.join(this.options.baseDir, 'config/plugin.default')
+    );
+    // loader plugins from framework
+    const eggPluginConfigPaths = this.eggPaths.map((eggPath) =>
+      path.join(eggPath, 'config/plugin.default')
+    );
+    const eggPlugins = this.readPluginConfigs(eggPluginConfigPaths);
+    // loader plugins from process.env.EGG_PLUGINS
+    let customPlugins = JSON.parse(process.env.EGG_PLUGINS);
+    // loader plugins from options.plugins
+    if (this.options.plugins) {
+      customPlugins = Object.assign({}, customPlugins, this.options.plugins);
+    }
+
+    this.plugins = enablePlugins;
+  }
+
+  /*
+   * 从多个目录中读取 plugin.js
+   */
+  readPluginConfigs(configPaths) {
+    const plugins = {};
+
+    // Get all plugin configurations
+    // plugin.default.js
+    // plugin.${scope}.js
+    // plugin.${env}.js
+    // plugin.${scope}_${env}.js
+
+    return plugins;
+  }
+}
+```
+
+接着调用父类上的 `loadConfig()` 方法，也就是 EggCore 加载器上的 `loadConfig()` 方法加载配置：
+
+```js
+// @file: egg-core/lib/loader/mixin/config.js
+module.exports = {
+  loadConfig() {
+    const target = {};
+    // Load Application config first
+    const appConfig = this._preloadAppConfig();
+    //   plugin config.default
+    //     framework config.default
+    //       app config.default
+    //         plugin config.{env}
+    //           framework config.{env}
+    //             app config.{env}
+    for (const filename of this.getTypeFiles('config')) {
+      for (const unit of this.getLoadUnits()) {
+      }
+    }
+    // load env from process.env.EGG_APP_CONFIG
+    const envConfig = JSON.parse(process.env.EGG_APP_CONFIG);
+
+    // 以上加载的配置都会被扩展到 target
+    // 您可以在 app.js 中操纵 app.config.coremidualware 和 app.config.appMiddleware 的顺序
+    target.coreMiddleware = target.coreMiddlewares =
+      target.coreMiddleware || [];
+    target.appMiddleware = target.appMiddlewares = target.middleware || [];
+
+    this.config = target;
+  },
+
+  getLoadUnits() {
+    const dirs = (this.dirs = []);
+
+    // 获取加载单元的路径集合
+    // 顺序从插件到框架，最后到应用程序
+    // dirs.push({ path: xxx, type: xxx})
+
+    return dirs;
+  },
+};
+```
+
+可见，配置的加载会根据一定的顺序加载各加载单元的配置：
+
+```bash
+-> 插件 config.default.js
+-> 框架 config.default.js
+-> 应用 config.default.js
+-> 插件 config.prod.js
+-> 框架 config.prod.js
+-> 应用 config.prod.js
+```
+
+后加载的会覆盖前面的同名配置，最后将合并后的结果赋值给加载器实例的 `config` 属性。
+
+### Loader.load()
+
+当上面的 `loadConfig()` 方法结束后，接下来并会开始执行 `load()` 方法：
+
+```js
+class AppWorkerLoader extends EggLoader {
+  load() {
+    // 加载扩展: app > plugin > core
+    this.loadApplicationExtend();
+    this.loadRequestExtend();
+    this.loadResponseExtend();
+    this.loadContextExtend();
+    this.loadHelperExtend();
+
+    this.loadCustomLoader();
+
+    // app > plugin
+    this.loadCustomApp();
+    // app > plugin
+    this.loadService(); // 加载服务
+    // app > plugin > core
+    this.loadMiddleware(); // 加载中间件
+    // app
+    this.loadController(); // 加载控制器
+    // app
+    this.loadRouter(); // Dependent on controllers
+  }
+}
+```
+
+其中加载扩展 Application、Context、Request、Response、Helper 等对象的文件时，主要都是用到了 `loadExtend()` 方法。
+
+### Loader.loadExtend()
+
+`loadExtend()` 方法主要通过操作存取描述符来实现（遍历对象上的属性获取对应的属性描述符，然后通过 `Object.defineProperty()` 定义到指定扩展对象的原型）。
+
+过程中，首先会查找可能存在的所有扩展文件：
+
+```js
+// @file: egg-core/lib/loader/mixin/extend.js
+// eg: loadExtend('application', this.app)
+module.exports = {
+  loadExtend(name, proto) {
+    // All extend files
+    const filepaths = this.getExtendFilePaths(name);
+    for (let i = 0, l = filepaths.length; i < l; i++) {
+      const filepath = filepaths[i];
+      filepaths.push(filepath + `.${this.serverEnv}`);
+    }
+  },
+
+  getExtendFilePaths(name) {
+    return this.getLoadUnits().map((unit) =>
+      path.join(unit.path, 'app/extend', name)
+    );
+  },
+};
+```
+
+然后，遍历这些文件中暴露出来的对象的属性，并获取其属性描述符，如果该属性描述符已经存在将要扩展的对象或者 Koa 暴露出来的对象上，那么会尝试用已有的存取描述符顶替缺失的。
+
+最后，会使用得到的属性描述符在目标对象上扩展新的属性。
+
+```js
+module.exports = {
+  loadExtend(name, proto) {
+    for (let filepath of filepaths) {
+      const ext = this.requireFile(filepath);
+      const properties = Object.getOwnPropertyNames(ext).concat(
+        Object.getOwnPropertySymbols(ext)
+      );
+
+      for (const property of properties) {
+        const descriptor = Object.getOwnPropertyDescriptor(ext, property);
+        // ...
+        Object.defineProperty(proto, property, descriptor);
+      }
+    }
+  },
+};
+```
+
+所以，如果我们需要扩展 Application 对象，只需要调用 `loadExtend()` 方法就可以了：
+
+```js
+class AppWorkerLoader extends EggLoader {
+  loadApplicationExtend() {
+    this.loadExtend('application', this.app);
+  }
+}
+```
+
+如此一来，也就理清了为什么我们在 `app/extend` 目录下创建的文件暴露的对象最终会扩展到对于的对象。
+
+接下来，那便是 `loadCustomLoader()` 方法了。
+
+### Loader.loadCustomLoader()
+
+我们在书写配置时可以通过指定 `customLoader` 属性来指定加载指定目录下的文件扩展到指定的对象上：
+
+```js
+// @file: config/config.default.js
+module.exports = {
+  customLoader: {
+    // 扩展属性名
+    adapter: {
+      // 相对于 app.config.baseDir 指定扩展文件所在目录
+      directory: 'app/adapter',
+      // 指定扩展的目标
+      inject: 'app',
+      // 是否加载框架和插件的目录
+      loadunit: false,
+      // 还可以定义其他 LoaderOptions
+      // ...
+    },
+  },
+};
+```
+
+这和下面的写法是一致的：
+
+```js
+// app.js
+module.exports = (app) => {
+  const directory = path.join(app.config.baseDir, 'app/adapter');
+  app.loader.loadToApp(directory, 'adapter');
+};
+```
+
+可见 `loadCustomLoader()` 它的底层主要是借助 `loadToApp()` 方法实现的，如果扩展 ctx 则是 `loadToContext()` 方法。
+
+```js
+// @file: egg-core/lib/loader/mixin/custom_loader.js
+module.exports = {
+  loadCustomLoader() {
+    const customLoader = this.config.customLoader || {};
+
+    for (const property of Object.keys(customLoader)) {
+      const loaderConfig = Object.assign({}, customLoader[property]);
+      const inject = loaderConfig.inject || 'app';
+      // ...
+
+      switch (inject) {
+        case 'ctx': {
+          this.loadToContext(/* */);
+          break;
+        }
+        case 'app': {
+          this.loadToApp(/* */);
+          break;
+        }
+        default:
+          throw new Error('inject only support app or ctx');
+      }
+    }
+  },
+};
+```
+
+事实上 `loadToApp()` 并没有做太多事情，只是简单的处理了配置项，核心都是通过初始化 FileLoader 类后，调用实例上的 `load()` 方法来完成的。
+
+```js
+class EggLoader {
+  loadToApp(directory, property, opt) {
+    const target = (this.app[property] = {});
+    // ...
+
+    new FileLoader(opt).load();
+  }
+}
+```
+
+在 `load()` 方法中会先调用 `parse()` 方法解析给定目录中的文件，然后返回一个项目列表，每项都包含以目录结构组成的属性数组和导出的结果。
+
+```js
+// @file: egg-core/lib/loader/file_loader.js
+class FileLoader {
+  parse() {
+    const directories = this.options.directory;
+    const filter = this.options.filter;
+    const items = [];
+    let files = this.options.match;
+    let ignore = this.options.ignore;
+
+    ignore = ignore.filter((f) => !!f).map((f) => '!' + f);
+    files = files.concat(ignore);
+
+    for (const directory of directories) {
+      const filepaths = globby.sync(files, { cwd: directory });
+      for (const filepath of filepaths) {
+        const fullpath = path.join(directory, filepath);
+        // get properties
+        // app/service/foo/bar.js => [ 'foo', 'bar' ]
+        const properties = getProperties(filepath, this.options);
+        // app/service/foo/bar.js => service.foo.bar
+        const pathName =
+          directory.split(/[/\\]/).slice(-1) + '.' + properties.join('.');
+        // get exports from the file
+        // 如果传递的配置中存在 initializer，那么会先调用 initializer 对暴露的结果进行处理
+        const exports = getExports(fullpath, this.options, pathName);
+        // ignore exports when it's null or false returned by filter function
+        if (exports == null || (filter && filter(exports) === false)) continue;
+        // set properties of class
+        if (is.class(exports)) {
+          exports.prototype.pathName = pathName;
+          exports.prototype.fullPath = fullpath;
+        }
+
+        items.push({ fullpath, properties, exports });
+      }
+    }
+
+    return items;
+  }
+}
+```
+
+接着会把每项附加到目标对象上，附加时会将目录层叠结构映射为嵌套的属性：
+
+```js
+class FileLoader {
+  load() {
+    const items = this.parse();
+    const target = this.options.target;
+    for (const item of items) {
+      // item { properties: [ 'a', 'b', 'c'], exports }
+      // => target.a.b.c = exports
+      item.properties.reduce((target, property, index) => {
+        let obj;
+        const properties = item.properties.slice(0, index + 1).join('.');
+
+        if (index === item.properties.length - 1) {
+          obj = item.exports;
+        } else {
+          obj = target[property] || {};
+        }
+
+        target[property] = obj;
+        return obj;
+      }, target);
+    }
+    return target;
+  }
+}
+```
+
+也就是说，在 FileLoader 处理过之后，对应目录下个文件暴露的内容都已经按照层级结构保存到指定的目标对象上了。
+
+类似的 `loadToContext()` 最后也会会用 FileLoader，不过并不是直接调用的，调用的是继承了 FileLoader 的 ContextLoader 处理：
+
+```js
+class EggLoader {
+  loadToContext(directory, property, opt) {
+    // ...
+
+    new ContextLoader(opt).load();
+  }
+}
+```
+
+它从各个目录读取来的结果并不像之前那样直接绑定在 Context 上，而是通过 `Object.defineProperty()` 方法将指定的属性定义到 Context 上面：
+
+```js
+// @file: egg-core/lib/loader/context_loader.js
+const CLASSLOADER = Symbol('classLoader');
+
+class ContextLoader extends FileLoader {
+  constructor(options) {
+    // ...
+    super(options);
+
+    // define ctx.service
+    Object.defineProperty(app.context, property, {
+      get() {
+        const classLoader = this[CLASSLOADER]
+          ? this[CLASSLOADER]
+          : (this[CLASSLOADER] = new Map());
+
+        let instance = classLoader.get(property);
+        if (!instance) {
+          instance = getInstance(target, this); // 如果是 Class 将会返回其实例
+          classLoader.set(property, instance);
+        }
+        return instance;
+      },
+    });
+  }
+}
+```
+
+这里也说明了为什么 Service 是懒的，因为只有我们在读取对应的 Service 才会在 `getInstance()` 方法中进行实例化：
+
+```js
+function getInstance(values, ctx) {
+  const Class = values[EXPORTS] ? values : null;
+  let instance;
+
+  if (Class) {
+  } else if () {
+  } else {
+    instance = new ClassLoader({ ctx, properties: values });
+  }
+  return instance;
+}
+```
+
+而且，之所以能够按照目录嵌套结构读取我们创建的 Service 也是在该方法中实现的，当它遇到是没有任何导出的目录时就会交给 ClassLoader 去处理。
+
+在 ClassLoader 中，它会将下层的属性定义到实例上面，在 `getter()` 方法中的处理方式则和 ContextLoader 基本一致，其中也会调用 `getInstance()` 方法来获取实例。
+
+```js
+class ClassLoader {
+  constructor(options) {
+    const properties = options.properties;
+    this._cache = new Map();
+    this._ctx = options.ctx;
+
+    // 遍历下层属性添加到实例上
+    for (const property in properties) {
+      this.defineProperty(property, properties[property]);
+    }
+  }
+
+  defineProperty(property, values) {
+    Object.defineProperty(this, property, {
+      get() {
+        let instance = this._cache.get(property);
+        if (!instance) {
+          instance = getInstance(values, this._ctx);
+          this._cache.set(property, instance);
+        }
+        return instance;
+      },
+    });
+  }
+}
+```
+
+这样就形成了递归，我们就可以按照目录结构来读取创建的 Service 了。事实上，我们平时访问的 Service 并不是在这里开始加载的，具体如何我们在后面再了解。
+
+### Loader.loadCustomApp()
+
+在 `loadCustomApp()` 方法中主要是加载各个单元中的申明的钩子，并将其添加到之前创建的用来处理生命周期的 `lifecycle` 中，然后调用它的 `init()` 方法对注册的类进行实例化。
+
+```js
+// @file: egg-core/lib/loader/mixin/custom.js
+const LOAD_BOOT_HOOK = Symbol('Loader#loadBootHook');
+
+module.exports = {
+  loadCustomApp() {
+    this[LOAD_BOOT_HOOK]('app');
+    this.lifecycle.triggerConfigWillLoad();
+  },
+
+  [LOAD_BOOT_HOOK](fileName) {
+    for (const unit of this.getLoadUnits()) {
+      const bootFilePath = this.resolveModule(path.join(unit.path, fileName));
+      const bootHook = this.requireFile(bootFilePath);
+
+      if (is.class(bootHook)) {
+        bootHook.prototype.fullPath = bootFilePath;
+        this.lifecycle.addBootHook(bootHook);
+      }
+      // ...
+    }
+
+    this.lifecycle.init();
+  },
+};
+```
+
+在 Lifecycle 中的处理也比较清晰，主要是存储相关的相关的钩子，然后在相应的方法调用时再执行钩子：
+
+```js
+// @file: egg-core/lib/lifecycle.js
+const BOOT_HOOKS = Symbol('Lifecycle#bootHooks');
+
+class Lifecycle extends EventEmitter {
+  addBootHook(hook) {
+    this[BOOT_HOOKS].push(hook);
+  }
+
+  init() {
+    this[INIT] = true;
+    this[BOOTS] = this[BOOT_HOOKS].map((t) => new t(this.app));
+  }
+
+  triggerConfigWillLoad() {
+    for (const boot of this[BOOTS]) {
+      if (boot.configWillLoad) {
+        boot.configWillLoad();
+      }
+    }
+    // ...
+  }
+}
+```
+
+因此，如果我们需要在框架的生命周期中做一些事情，只需要使用类的方式定义 `app.js` 和 `agent.js` 之后导出就可以了。
+
+### Loader.loadService() & Loader.loadMiddleware()
+
+接下来真正 Service 的加载了，它会利用上面介绍的 `loadToContext()` 方法加载各个加载单元下 `app/service` 目录中的文件，并将结果保存在应用的 `serviceClasses` 属性下，等待调用 ctx API 时才实例化对象。
+
+```js
+// @file: egg-core/lib/loader/mixin/service.js
+module.exports = {
+  loadService(opt) {
+    // ...
+    this.loadToContext(servicePaths, 'service', opt);
+  },
+};
+```
+
+中间件的加载则是利用 `loadToApp()` 方法加载各个加载单元下的 `app/middleware` 目录中的文件，然后放在 `app.middlewares`。
+
+我们书写的中间件总是导出了一个函数，以便接收到用户的参数。所以在这里还会遍历中间件将之前读取到的对应配置选项和当前应用传递给函数得到真正的中间件。
+
+```js
+// @file: egg-core/lib/loader/mixin/middleware.js
+module.exports = {
+  loadMiddleware(opt) {
+    // ...
+    this.loadToApp(opt.directory, 'middlewares', opt);
+
+    for (const name in app.middlewares) {
+      // 通过将每一项 Object.defineProperty() 定义到 app.middleware
+    }
+
+    // use middleware ordered by app.config.coreMiddleware and app.config.appMiddleware
+    const middlewareNames = this.config.coreMiddleware.concat(
+      this.config.appMiddleware
+    );
+    for (const name of middlewareNames) {
+      const options = this.config[name] || {};
+      let mw = app.middlewares[name];
+      mw = mw(options, app);
+      // middlewares support options.enable, options.ignore and options.match
+      mw = wrapMiddleware(mw, options);
+      if (mw) {
+        app.use(mw);
+      }
+    }
+  },
+};
+```
+
+紧接着我们还有针对 `enable`、`match` 和 `ignore` 等选项进行处理，只有满足要求的中间件采用调用 `app.use()` 进行注册。
+
+```js
+function wrapMiddleware(mw, options) {
+  // support options.enable
+  if (options.enable === false) return null;
+
+  // support generator function
+  mw = utils.middleware(mw);
+
+  // support options.match and options.ignore
+  if (!options.match && !options.ignore) return mw;
+  const match = pathMatching(options);
+
+  const fn = (ctx, next) => {
+    if (!match(ctx)) return next();
+    return mw(ctx, next);
+  };
+  fn._name = mw._name + 'middlewareWrapper';
+  return fn;
+}
+```
+
+### Loader.loadController()
+
+控制器的加载也是通过 `loadToApp()` 方法来实现的，除了加载的目录为各个加载单元下的 `app/controller` 并存储在 `app.controller` 外，还在调用 `loadToApp()` 方法的选项中添加了一个 `initializer()` 方法对控制器进行预处理。
+
+```js
+// @file: egg-core/lib/loader/mixin/controller.js
+const opt = {
+  initializer: (obj, opt) => {
+    // 如果是一个普通函数就传递 app 执行函数取到真正的控制器
+    // eg: module.exports = app => { return class HomeController extends app.Controller {}; }
+    if (
+      is.function(obj) &&
+      !is.generatorFunction(obj) &&
+      !is.class(obj) &&
+      !is.asyncFunction(obj)
+    ) {
+      obj = obj(this.app);
+    }
+    // Class 的方式是我们现在常见的书写方式
+    if (is.class(obj)) {
+      obj.prototype.pathName = opt.pathName;
+      obj.prototype.fullPath = opt.path;
+      return wrapClass(obj);
+    }
+    if (is.object(obj)) {
+      return wrapObject(obj, opt.path);
+    }
+    // support generatorFunction for forward compatbility
+    if (is.generatorFunction(obj) || is.asyncFunction(obj)) {
+      return wrapObject({ 'module.exports': obj }, opt.path)['module.exports'];
+    }
+    return obj;
+  },
+};
+```
+
+以我们最常书写的 Class 为例，它会创建一个新的对象，然后遍历控制器的原型链，除了 `constructor()` 和 `getter()` 外，会将其它方法都包装后记录在新的对象上，直到遍历到 Object 的原型，最后返回这个新的对象。
+
+```js
+function wrapClass(Controller) {
+  let proto = Controller.prototype;
+  const ret = {};
+  // tracing the prototype chain
+  while (proto !== Object.prototype) {
+    const keys = Object.getOwnPropertyNames(proto);
+    for (const key of keys) {
+      // getOwnPropertyNames will return constructor
+      // that should be ignored
+      if (key === 'constructor') {
+        continue;
+      }
+      // skip getter, setter & non-function properties
+      const d = Object.getOwnPropertyDescriptor(proto, key);
+      // prevent to override sub method
+      if (is.function(d.value) && !ret.hasOwnProperty(key)) {
+        ret[key] = methodToMiddleware(Controller, key);
+      }
+    }
+    proto = Object.getPrototypeOf(proto);
+  }
+  return ret;
+
+  function methodToMiddleware(Controller, key) {
+    return function classControllerMiddleware(...args) {
+      const controller = new Controller(this);
+      return utils.callFn(controller[key], [this], controller);
+    };
+  }
+}
+```
+
+也就是说我们后续访问到 Controller 其实是一个对象，之后我们指定这个对象上的方法来处理响应的路由，这个函数在执行时会初始化最初暴露的控制器，然后调用对应的方法去处理本次请求。
+
+```js
+const is = require('is-type-of');
+
+/**
+ * @param {Egg.Application} app - egg application
+ */
+module.exports = (app) => {
+  const { router, controller } = app;
+
+  console.log(is.class(controller.home)); // false
+
+  router.get('/', controller.home.index);
+};
+```
+
+### Loader.loadRouter()
+
+最后路由的加载就更简单了，直接利用 `loader.loadFile()` 方法加载 `app/router.js`，并将当前应用作为参数调用暴露出来的函数。
+
+```js
+// @file: egg-core/lib/loader/mixin/router.js
+module.exports = {
+  loadRouter() {
+    // 加载 router.js
+    this.loadFile(path.join(this.options.baseDir, 'app/router'));
+  },
+};
+```
+
+值得一提的是，我们都没有添加过路由相关的东西，Router 是什么时候绑定在应用上的呢？事实上，在一开始 EggCore 初始化时应用就加载了 [egg-router][egg-router] 来提供相关支持：
+
+```js
+const Router = require('@eggjs/router').EggRouter;
+const ROUTER = Symbol('EggCore#router');
+
+class EggCore extends KoaApplication {
+  use(fn) {
+    this.middleware.push(utils.middleware(fn));
+    return this;
+  }
+
+  get router() {
+    if (this[ROUTER]) {
+      return this[ROUTER];
+    }
+    const router = (this[ROUTER] = new Router({ sensitive: true }, this));
+    // register router middleware
+    this.beforeStart(() => {
+      this.use(router.middleware());
+    });
+    return router;
+  }
+}
+```
+
+egg-router 其实是 fork 自 [koa-router][koa-router] 的，然后添加了一些额外的功能。
+
+## 总结
+
+回到我们最开始的问题，现在应该很清晰了。
+
+- 项目中没有所谓的入口文件，服务是如何启动的？
+
+CommonBin 在 Yargs 的基础上抽象封装的 Nodejs 命令行工具，而 EggBin 则基于 CommonBin 将指定目录下的命令自动挂载到实例对象下面，之后再通过命令调用对应的脚本进行处理。
+
+以运行 Debug 为例，EggBin 最终调用了 Egg 模块的 `startCluster()` 方法，而该方法实际上被定义在 EggCluster 模块，该模块专门用来为 Egg 提供集群管理。
+
+EggCluster 在运行时会自动创建一个 Agent 和多个 Worker，每个 Worker 都会创建一个应用用于处理用户请求，等到多个 App Worker 成功启动后，Master 并开始对外提供服务。
+
+- 控制器和服务都在各自的目录下声明，最终是如何出现在 `app` 对象上的？
+
+Egg 作为一个底层框架，其本身支持的特性较少，需要插件来提供更多的特性。在 Egg 中插件其实就是一个小型的应用，而在应用之上基于 Egg 又可以扩展出一个个框架，Egg 将应用、框架和插件都称为加载单元（loadUnit）。
+
+在初始化过程中，当调用 `loadConfig()` 方法时，Egg 会遍历所有的 `loadUnit` 加载文件并扩展到指定的目标：
+
+| 文件                      | 应用 | 框架 | 插件 |
+| :------------------------ | :--- | :--- | :--- |
+| package.json              | ✔︎   | ✔︎   | ✔︎   |
+| config/plugin.{env}.js    | ✔︎   | ✔︎   |      |
+| config/config.{env}.js    | ✔︎   | ✔︎   | ✔︎   |
+| app/extend/application.js | ✔︎   | ✔︎   | ✔︎   |
+| app/extend/request.js     | ✔︎   | ✔︎   | ✔︎   |
+| app/extend/response.js    | ✔︎   | ✔︎   | ✔︎   |
+| app/extend/context.js     | ✔︎   | ✔︎   | ✔︎   |
+| app/extend/helper.js      | ✔︎   | ✔︎   | ✔︎   |
+| agent.js                  | ✔︎   | ✔︎   | ✔︎   |
+| app.js                    | ✔︎   | ✔︎   | ✔︎   |
+| app/service               | ✔︎   | ✔︎   | ✔︎   |
+| app/middleware            | ✔︎   | ✔︎   | ✔︎   |
+| app/controller            | ✔︎   |      |      |
+| app/router.js             | ✔︎   |      |      |
+
+加载时会按照一定的优先级依次加载：
+
+1. 插件 => 框架 => 应用；
+2. 插件之间的顺序由依赖关系决定，被依赖方先加载；
+3. 框架按继承顺序加载，越底层越先加载。
+
+## Appendix
+
+- Yargs 框架通过使用 Node.js 构建功能全面的命令行应用，它能轻松配置命令，解析多个参数，并设置快捷方式等，还能自动生成帮助菜单。
+
+```js
+// test.js
+const yargs = require('yargs');
+
+const argv = yargs
+  .usage('Usage: --s <filename>') // 声明命令格式
+  .describe('t', '类型')
+  .alias('t', 'type')
+  .demandOption(['type'], 'type is required')
+  .default('name', 'test')
+  .option('s', {
+    describe: '文件大小', // 选项的描述信息
+    alias: 'size', // 别名
+    demandOption: false, // 是否必需
+    default: 10, // 默认值
+    type: 'number', // 类型
+  })
+  .example('--s a.txt', '设置源文件') // 使用示例
+  .help('help') // 显示帮助信息
+  .epilog('copyright').argv; //  在帮助信息尾部显示
+
+console.log(argv);
+// node test a b -t c --name d
+```
+
+- Cluster 可以在服务器上同时启动多个进程，每个进程里都跑的是同一份源代码，而且这些进程可以同时监听一个端口。
+
+```js
+const cluster = require('cluster');
+const http = require('http');
+const numCPUs = require('os').cpus().length;
+
+if (cluster.isMaster) {
+  // Fork workers.
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+
+  cluster.on('exit', function(worker, code, signal) {
+    console.log('worker ' + worker.process.pid + ' died');
+  });
+} else {
+  // Workers can share any TCP connection
+  // In this case it is an HTTP server
+  http
+    .createServer(function(req, res) {
+      res.writeHead(200);
+      res.end('hello world\n');
+    })
+    .listen(8000);
+}
+```
+
+## Refs
+
+- [Egg.js 源码分析-项目启动](https://juejin.cn/post/6844903716777099278)
+- [从 egg-bin 聊到 command line interface Tool](https://segmentfault.com/a/1190000018139676)
+- [从零开始打造个人专属命令行工具集——yargs 完全指南](https://www.cnblogs.com/bymax/p/5748662.html)
+
+[egg-bin]: https://github.com/eggjs/egg-bin
+[common-bin]: https://github.com/node-modules/common-bin
+[egg-router]: https://github.com/eggjs/egg-router
+[koa-router]: https://github.com/ZijianHe/koa-router
+[yargs]: http://yargs.js.org/
+[co]: https://github.com/tj/co
