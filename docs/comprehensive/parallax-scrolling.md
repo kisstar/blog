@@ -4,7 +4,7 @@
 
 所以，在使用视差滚动技术的页面上通常有许多元素在相互独立地滚动着，如果来对其它分层的话，可以有两到三层 ：背景层，内容层，贴图层。
 
-<img :src="$withBase('/images/comprehensive/parallax-scrolling.png')" alt="parallax-scrolling">
+<img :src="$withBase('/images/comprehensive/parallax-scrolling.png')" alt="parallax scrolling">
 
 其中，背景层的滚动速度最慢，贴图层次之，最后是内容层，内容层的滚动速度通常可以和页面的滚动速度保持一致。
 
@@ -90,7 +90,7 @@ CSS transforms 由一系列 CSS 属性实现，通过使用这些属性，可以
 
 CSS 属性 `perspective` 属性值设置与对象平面的距离，或者换句话说，设置透视的强度。
 
-<img :src="$withBase('/images/comprehensive/css-coordinate.jpg')" alt="css-coordinate">
+<img :src="$withBase('/images/comprehensive/css-coordinate.jpg')" alt="css coordinate">
 
 当 z>0 时三维元素比正常大，而 z<0 时则比正常小，这很符合我们近大远小的道理。那么如何借此实现视差滚动呢？
 
@@ -128,6 +128,20 @@ CSS 属性 `perspective` 属性值设置与对象平面的距离，或者换句�
 现在，滚动滚动条，由于子元素相对屏幕存在不同的距离，我们视觉上看起来它们的滚动距离和速度也是不一样的，由此达到了滚动视差的效果。
 
 [查看完整示例][parallax_transform]。
+
+### 为什么是放大 1.5 倍
+
+我们使用 `translateZ()` 将子元素向后推会使其在透视上占的比例更小，为了让元素产生视差滚动并保持同样的大小，我们使用了 `scale()` 进行缩放。
+
+在上面的代码中，透视距离是 2px，视差子元素的 Z 轴距离是 -1px。这样的话元素需要放大 1.5 倍，那么是怎么得来的呢？
+
+<img :src="$withBase('/images/comprehensive/similar-triangles.png')" alt="similar triangles">
+
+由图可见我们的物体（de）在使用视差后实际看到的是屏幕（be）的大小，为了还原真实的大小我们就需要知道 be/de 之间的比值。
+
+根据相似三角形的判定方法：平行于三角形一边的直线截其它两边所在的直线，截得的三角形与原三角形相似。我们可以判定三角形 abc 和三角形 ade 是相似三角形。
+
+因此，这里 be/de 的值实际上就是 ae/af 的值，也就是 2/3。可见物体被缩小了 1.5 倍，为了还原大小我们只需要再放大 1.5 倍。
 
 ## 滚动事件
 
@@ -226,6 +240,16 @@ addEventListener('scroll', render);
 
 [查看完整示例][parallax_event]。
 
+## 综合
+
+在上面我们已经了解了使用 CSS 或 JavaScript 实现视差滚动的方式。事实上，不仅仅是速度，包括大小和能见度也可以作为辅助视差的方式。
+
+下面是一个简单的纯 CSS 实现的动画效果：
+
+<img :src="$withBase('/images/comprehensive/qixi.png')" alt="七夕">
+
+可见 CSS 的动画能力已经很不错了，再结合脚本配合起来，发挥想象并能创建一些有趣的视差动画。
+
 ## 参考
 
 - [background-attachment - CSS（层叠样式表） | MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/background-attachment)
@@ -241,10 +265,3 @@ addEventListener('scroll', render);
 [parallax_fixed]: https://kisstar.github.io/demo/parallax/content/fixed.html
 [parallax_transform]: https://kisstar.github.io/demo/parallax/content/transform.html
 [parallax_event]: https://kisstar.github.io/demo/parallax/content/event.html
-
-<!--
-
-1. 为什么是放大 1.5 倍？
-2. 其它视差作品/实现？
-
--->
