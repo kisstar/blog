@@ -1,4 +1,13 @@
-# 视差滚动
+---
+thumbnail: /images/comprehensive/parallax-scrolling.png
+title: 视差滚动
+summary: 视差滚动（Parallax Scrolling）是指让多层背景以不同的速度移动，形成立体的运动效果。
+author: Kisstar
+location: 北京
+date: 2021-05-10
+tags:
+  - CSS
+---
 
 视差滚动（Parallax Scrolling）是指让多层背景以不同的速度移动，形成立体的运动效果。
 
