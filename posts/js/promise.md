@@ -1,4 +1,14 @@
-# 从零实现 Promise
+---
+thumbnail: /images/js/promise.png
+title: 从零实现 Promise
+summary: Promise 是一个对象，它代表了一个异步操作的最终完成或者失败。现在它已经成为了 JavaScript 中异步编程的一种重要解决方案，在进一步接触它之前，先来了解一点基本概念。
+author: Kisstar
+location: 北京
+date: 2019-12-16
+tags:
+  - JavaScript
+  - Promise
+---
 
 `Promise` 是一个对象，它代表了一个异步操作的最终完成或者失败。现在它已经成为了 `JavaScript` 中异步编程的一种重要解决方案，在进一步接触它之前，先来了解一点基本概念。
 
@@ -43,7 +53,7 @@ console.log('End of execution');
 ```javascript
 const fs = require('fs');
 
-fs.readFile('input.txt', function (err, data) {
+fs.readFile('input.txt', function(err, data) {
   if (err) return console.error(err);
   console.log(data.toString());
 });
@@ -68,27 +78,27 @@ console.log('End of execution');
 它，就像下面这样，甚至可以更复杂。
 
 ```javascript
-fs.readdir(source, function (err, files) {
+fs.readdir(source, function(err, files) {
   if (err) {
     console.log('Error finding files: ' + err);
   } else {
-    files.forEach(function (filename, fileIndex) {
+    files.forEach(function(filename, fileIndex) {
       console.log(filename);
-      gm(source + filename).size(function (err, values) {
+      gm(source + filename).size(function(err, values) {
         if (err) {
           console.log('Error identifying file size: ' + err);
         } else {
           console.log(filename + ' : ' + values);
           aspect = values.width / values.height;
           widths.forEach(
-            function (width, widthIndex) {
+            function(width, widthIndex) {
               height = Math.round(width / aspect);
               console.log(
                 'resizing ' + filename + 'to ' + height + 'x' + height
               );
               this.resize(width, height).write(
                 dest + 'w' + width + '_' + filename,
-                function (err) {
+                function(err) {
                   if (err) console.log('Error writing file: ' + err);
                 }
               );

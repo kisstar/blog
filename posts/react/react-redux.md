@@ -1,13 +1,13 @@
 ---
 thumbnail: /images/react/react-redux.jpeg
 title: React-redux
-summary: `Redux` 是 `JavaScript` 状态容器，它不单单是为 `React` 项目工作，所以针对特定的环境来说并不是很友好。为了更方便地在 `React` 中使用 `Redux`，于是社区中就出现了 `React-redux`。
+summary: Redux 是 JavaScript 状态容器，它不单单是为 React 项目工作，所以针对特定的环境来说并不是很友好。为了更方便地在 React 中使用 Redux，于是社区中就出现了 React-redux。
 author: Kisstar
 location: 北京
 date: 2020-02-21
 tags:
-  - Redux
   - React
+  - Redux
   - React-redux
 ---
 

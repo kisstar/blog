@@ -1,4 +1,14 @@
-# Egg.js 的启动流程
+---
+thumbnail: /images/nodejs/eggjs.png
+title: Egg.js 的启动流程
+summary: Egg.js 为企业级框架和应用而生，其奉行『约定优于配置』，按照一套统一的约定进行应用开发，团队内部采用这种方式可以减少开发人员的学习成本。
+author: Kisstar
+location: 北京
+date: 2021-05-09
+tags:
+  - Node.js
+  - Egg.js
+---
 
 Egg.js 为企业级框架和应用而生，其奉行『约定优于配置』，按照一套统一的约定进行应用开发，团队内部采用这种方式可以减少开发人员的学习成本。
 

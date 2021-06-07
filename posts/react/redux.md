@@ -1,7 +1,7 @@
 ---
 thumbnail: /images/react/redux.png
 title: Redux
-summary: `Redux` 是 `JavaScript` 状态容器，提供可预测化的状态管理，让你构建一致化的应用，运行于不同的环境（客户端、服务器、原生应用），并且易于测试。
+summary: Redux 是 JavaScript 状态容器，提供可预测化的状态管理，让你构建一致化的应用，运行于不同的环境（客户端、服务器、原生应用），并且易于测试。
 author: Kisstar
 location: 北京
 date: 2019-12-16

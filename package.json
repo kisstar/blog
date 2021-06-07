@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "vuepress dev posts",
-    "build": "vuepress build posts"
+    "dev": "vuepress dev .",
+    "build": "vuepress build ."
   },
   "repository": "https://github.com/kisstar/blog.git",
   "author": "kisstar <dwh.chn@foxmail.com>",
