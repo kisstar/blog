@@ -9,11 +9,11 @@ tags:
   - CSS
 ---
 
+<img :src="$withBase('/images/comprehensive/parallax-scrolling.png')" alt="parallax scrolling">
+
 视差滚动（Parallax Scrolling）是指让多层背景以不同的速度移动，形成立体的运动效果。
 
 所以，在使用视差滚动技术的页面上通常有许多元素在相互独立地滚动着，如果来对其它分层的话，可以有两到三层 ：背景层，内容层，贴图层。
-
-<img :src="$withBase('/images/comprehensive/parallax-scrolling.png')" alt="parallax scrolling">
 
 其中，背景层的滚动速度最慢，贴图层次之，最后是内容层，内容层的滚动速度通常可以和页面的滚动速度保持一致。
 
@@ -259,6 +259,8 @@ addEventListener('scroll', render);
 
 可见 CSS 的动画能力已经很不错了，再结合脚本配合起来，发挥想象并能创建一些有趣的视差动画。
 
+[查看完整示例][css_animation]。
+
 ## 参考
 
 - [background-attachment - CSS（层叠样式表） | MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/background-attachment)
@@ -274,3 +276,4 @@ addEventListener('scroll', render);
 [parallax_fixed]: https://kisstar.github.io/demo/parallax/content/fixed.html
 [parallax_transform]: https://kisstar.github.io/demo/parallax/content/transform.html
 [parallax_event]: https://kisstar.github.io/demo/parallax/content/event.html
+[css_animation]: https://kisstar.github.io/demo/parallax/content/css-animation.html
