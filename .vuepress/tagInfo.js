@@ -68,4 +68,9 @@ module.exports = {
     des:
       'React-Redux 是 Redux 的官方 React 绑定库。它能够帮助你很好地完成两者之间的协同工作。',
   },
+  Git: {
+    cover: '/images/git/git.png',
+    des:
+      'Git 是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。支持克隆/下载。',
+  },
 };
