@@ -4,12 +4,14 @@
   "main": "index.js",
   "scripts": {
     "dev": "vuepress dev .",
-    "build": "vuepress build ."
+    "build": "vuepress build .",
+    "deploy:gb": "node scripts/ghpages.js"
   },
   "repository": "https://github.com/kisstar/blog.git",
   "author": "kisstar <dwh.chn@foxmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "gh-pages": "^3.2.3",
     "vuepress": "^1.8.2"
   }
 }
