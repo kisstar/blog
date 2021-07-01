@@ -73,4 +73,14 @@ module.exports = {
     des:
       'Git 是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。支持克隆/下载。',
   },
+  Video: {
+    cover: '/images/tags/video.jpeg',
+    des:
+      '视频（Video）泛指将一系列静态影像以电信号的方式加以捕捉、记录、处理、储存、传送与重现的各种技术。',
+  },
+  'Video.js': {
+    cover: '/images/video/videojs.png',
+    des:
+      'Video.js 是一个通用的在网页上嵌入视频播放器的 JS 库，在浏览器不支持 HTML5 时会自动使用 Flash 播放器。',
+  },
 };
