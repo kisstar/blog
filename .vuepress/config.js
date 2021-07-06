@@ -1,4 +1,7 @@
+require('dotenv').config();
 const tagInfo = require('./tagInfo');
+
+const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = process.env;
 
 module.exports = (ctx) => ({
   theme: 'vuepress-theme-extreme',
@@ -69,9 +72,13 @@ module.exports = (ctx) => ({
     comment: {
       service: 'vssue',
       owner: 'kisstar',
-      repo: 'blog',
-      clientId: '',
-      clientSecret: '',
+      repo: 'kisstar.github.io',
+      clientId: GITHUB_CLIENT_ID,
+      clientSecret: GITHUB_CLIENT_SECRET,
+      // Optional
+      state: 'Comment',
+      labels: ['Comment'],
+      prefix: ['[Comment] '],
     },
   },
 });
