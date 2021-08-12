@@ -80,5 +80,7 @@ module.exports = (ctx) => ({
       labels: ['Comment'],
       prefix: ['[Comment] '],
     },
+    // 搜索
+    searchPlaceholder: 'What are you looking for?',
   },
 });
