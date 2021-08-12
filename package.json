@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "vuepress dev .",
     "build": "vuepress build .",
-    "deploy:gb": "node scripts/ghpages.js"
+    "predeploy": "npm run build",
+    "deploy:gb": "node scripts/ghpages.js",
+    "deploy": "npm run deploy:gb"
   },
   "repository": "https://github.com/kisstar/blog.git",
   "author": "kisstar <dwh.chn@foxmail.com>",
