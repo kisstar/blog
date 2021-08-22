@@ -1,5 +1,6 @@
 /**
  * 所有标签的集合，其中的键表示标签的名称，值是对应标签的详细信息。
+ * [key]: 标签名
  * cover: 指定标签的封面
  * des: 指定标签的详细描述
  */
@@ -82,5 +83,15 @@ module.exports = {
     cover: '/images/video/videojs.png',
     des:
       'Video.js 是一个通用的在网页上嵌入视频播放器的 JS 库，在浏览器不支持 HTML5 时会自动使用 Flash 播放器。',
+  },
+  Math: {
+    cover: '/images/tags/math.jpeg',
+    des:
+      '数学（Math），是研究数量、结构、变化以及空间等概念的一门学科，从某种角度看属于形式科学的一种。',
+  },
+  Matrix: {
+    cover: '/images/math/matrix.png',
+    des:
+      '矩阵（Matrix）是一个按照长方阵列排列的复数或实数集合，元素为实数的矩阵为实矩阵。',
   },
 };

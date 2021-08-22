@@ -1,0 +1,248 @@
+---
+thumbnail: /images/math/matrix.png
+title: 矩阵基础
+summary: 矩阵（Matrix）是一个按照长方阵列排列的复数或实数集合，元素为实数的矩阵为实矩阵。
+author: Kisstar
+location: 北京
+date: 2021-08-03
+tags:
+  - Math
+  - Matrix
+---
+
+<img style="width: 100%; height: 350px;" :src="$withBase('/images/math/matrix.png')" alt="matrix">
+
+矩阵（Matrix）是一个按照长方阵列排列的复数或实数集合，元素为实数的矩阵为实矩阵。
+
+## 特殊矩阵
+
+- 方阵：行数及列数皆相同的矩阵，也称方阵、方矩阵或正方矩阵。
+
+<img :src="$withBase('/images/math/square-matrix.png')" alt="square-matrix">
+
+在一个 n 阶方阵(或是 n 阶行列式)中，从左上角到右下角这一斜线方向上的 n 个元素所在的对角线，叫做 n 阶方阵(或行列式)的主对角线。
+
+相反，从左下角至右上角这一斜线方向上的 n 个元素所在的对角线归为副对角线。
+
+主对角线上的元素的两个角标是相同的，其它关于主对角线对称的两个元素之间的角标行数和列数相等、列数和行数相等。
+
+- 零矩阵：所有元素皆为 0 的矩阵。一般用 $O_{mxn}$ 进行表示。
+
+- [对角矩阵][diagonal_matrix]：主对角线之外的元素皆为 0 的矩阵。
+
+- 单位举证：主对角线元素为 1，其余元素为 0 的矩阵。
+
+- [数量矩阵][scalar_matrix]：设 E 是单位矩阵，k 是任何实数，则 kE 称为数量矩阵。换句话说，数量矩阵就是对角线上元素都是同一个数值，其余元素都是零。
+
+可见，对角矩阵、单位矩阵和数量矩阵都是方阵，都有对角线。
+
+- 三角矩阵：作为方形矩阵的一种，因其非零系数的排列呈三角形状而得名。上三角矩阵的对角线左下方的系数全部为零，下三角矩阵的对角线右上方的系数全部为零。
+
+- 梯形矩阵：设 A 为非零矩阵，若非零行（即至少有一个非零元素的行），全在零行的上面，A 中各非零行中第一个（最后一个）非零元素前（后）面零元素的个数随行数的增大而增多（减少）则成为上（下）梯形矩阵。简称上（下）梯形阵。
+
+## 矩阵的运算
+
+如果两个矩阵拥有相同的行数和列数，且对应位置的元素相等，那么这两个矩阵是相等的。
+
+### 矩阵的加减法
+
+将两个矩阵进行加减时就是两个矩阵对应位置的元素进行加减，设 $A=(a_{ij})_{m*n}$ 与 $B=(b_{ij})_{m*n}$ 定义：
+
+- $A+B==(a_{ij}+b_{ij})_{m*n}$
+- $A-B==(a_{ij}-b_{ij})_{m*n}$
+
+运算规律：
+
+- $A+B=B+A$
+- $(A+B)+C=A+(B+C)$
+- $A+O=A$
+- $A-A=O$
+
+另外 $(-a_{ij})_{m*n}$ 为 A 的负矩阵，记作 -A。
+
+### 矩阵的乘法
+
+与数的乘法，简称为数乘，记作：kA（也就是 k 与 A 中的每一项相乘）。
+
+运算规律：
+
+- $kA+kB=k(A+B)$
+- $k(lA)=(kl)A$
+- $kA+lA=(k+l)A$
+
+矩阵相乘，必须保证前一矩阵的列数与后一矩阵的行数相同，否则不能相乘。
+
+需要注意的是，矩阵的乘法和数的乘法相比有以下几点不同：
+
+- 矩阵乘法不满足交换律；
+- 矩阵乘法不满足消去律；
+- 有非零的零因子：两个非零矩阵相乘可以得到零矩阵。
+
+运算规律：
+
+- $(AB)C=A(BC)$
+- $A(B+C)=AB+AC$
+- $k(AB)=(kA)B=A(kB)$
+- $E_mA_{m*n}=A=A_{m*n}E_n$
+
+### 方阵的幂
+
+方阵的正整数幂: $A^k=AA...A$
+
+运算规律：
+
+- $A^{k+l}=A^kA^l$
+- $A^0=E$ (方阵的零幂为单位矩阵)
+
+需要注意的是: $(AB)^k\not=A^kB^k$
+
+### 矩阵的转置
+
+矩阵的转置，就是把矩阵 A 中，第 i 行元素转换成矩阵的第 i 列，得到的新矩阵即为矩阵 A 的转置矩阵，记作 $A^T$。
+
+对角阵的转置就是它本身。
+
+运算规律：
+
+- $(A^T)^T=A$
+- $(A+B)^T=A^T+b^T$
+- (kA)^T=kA^T
+- $(AB)^T=B^TA^T$
+
+### 对称阵与反对称阵
+
+如果一个矩阵，它的转置和它本身相等，我们就把这个矩阵叫做对称阵。
+
+对称阵: $A^T=A$
+
+以下都是对称阵：
+
+- $AA^T$
+- $A^TA$
+- $A+A^T$
+
+反对称阵: $A^T=-A$
+
+以下都是反对称阵：
+
+- $A-A^T$
+
+对称阵和反对称阵都是方阵。任何一个方阵都可以分解成对称阵和反对称阵的和。
+
+## 变换矩阵
+
+变换矩阵是数学线性代数中的一个概念。线性变换采用矩阵表示时，如果 T 是一个把 $R^n$ 映射到 $R^m$ 的线性变换，且 x 是一个具有 n 个元素的列向量则：
+
+$T({\vec  x})={\mathbf  {A}}{\vec  x}$
+
+此时，我们把 m×n 的矩阵 A，称为 T 的变换矩阵。
+
+最为常用的几何变换都是线性变换，这包括旋转、缩放等。在二维空间中，线性变换可以用 3×3 的变换矩阵表示。
+
+### 矩阵旋转
+
+设点 p 与原点连线和 X 轴夹角为 α 度，以原点为圆心，逆时针转过 β 度 , 原点与该点连线长度为 r, `[x, y]` 为变换前坐标， `[x', y']` 为变换后坐标。
+
+<img :src="$withBase('/images/math/matrix-rotation.png')" alt="matrix-rotation">
+
+通过角度和长度两个变量我们可以分别表示出变换前后坐标的值，然后将两个等式合并消除 r 和 α 之后可以得到变换公式：
+
+- $x'=x\cos \theta -y\sin \theta$
+- $y'=x\sin \theta +y\cos \theta$
+
+在二维空间中，用矩阵表示为：
+
+${\displaystyle {\begin{pmatrix}x'\\y'\end{pmatrix}}={\begin{pmatrix}\cos \theta &-\sin \theta \\\sin \theta &\cos \theta \end{pmatrix}}{\begin{pmatrix}x\\y\end{pmatrix}}}$
+
+同理，在三维维空间中，如果我们绕着 Z 轴逆时针旋转 β 角度的话，此时 Z 轴上的值不会有任何变化，用矩阵可表示为：
+
+${\displaystyle {\begin{pmatrix}x'\\y'\\z'\end{pmatrix}}={\begin{pmatrix}\cos \theta &-\sin \theta &0 \\\sin \theta &\cos \theta &0\\0 &0 &1\end{pmatrix}}{\begin{pmatrix}x\\y\\z\end{pmatrix}}}$
+
+### 矩阵平移
+
+在空间中，如果想要把一个顶点进行平移，那么需要将顶点坐标的每个分量（x 和 y）加上其在对应轴上平移的距离。
+
+<img :src="$withBase('/images/math/matrix-translation.png')" alt="matrix-translation">
+
+比如，将点 p(x, y, z) 平移到 p'(x', y', z')，在 X 轴、Y 轴和 Z 轴三个方向的平移距离分别为 $T_x$、$T_x$ 和 $T_x$，其中后者为零。
+
+- $x'=x+T_x$
+- $y'=y+T_y$
+- $z'=z+T_z$
+
+在三维空间中，用矩阵表示为：
+
+${\begin{pmatrix}x'\\y'\\z'\\1\end{pmatrix}}={\begin{pmatrix}1&0&0&T_x\\0&1&0&T_y\\0&0&1&T_z\\0&0&0&1\end{pmatrix}}{\begin{pmatrix}x\\y\\z\\1\end{pmatrix}}$
+
+### 矩阵缩放
+
+同样假设点 p 经过缩放之后变成了点 p'，在 X 轴、Y 轴和 Z 轴三个方向上的缩放因子 $S_x$、$S_y$ 和 $S_z$ 不相关。
+
+<img :src="$withBase('/images/math/matrix-scaling.png')" alt="matrix-scaling">
+
+那么，根据缩放关系存在：
+
+- $x'=S_x * x$
+- $y'=S_y * y$
+- $z'=S_z * z$
+
+用矩阵表示为：
+
+${\begin{pmatrix}x'\\y'\\z'\\1\end{pmatrix}}={\begin{pmatrix}S_x&0&0&0\\0&S_y&0&0\\0&0&S_z&0\\0&0&0&1\end{pmatrix}}{\begin{pmatrix}x\\y\\z\\1\end{pmatrix}}$
+
+## 矩阵的应用
+
+除了完成单个几何变换之外，我们还可以将变换进行组合，比如先旋转再平移。
+
+对比在三维空间中的旋转和平移操作的矩阵表示，它们的阶数并不相同，为了将它们进行组合，我们需要将它们的阶数变得一致。
+
+对比它们的方程表达式，我们可以得到下面的矩阵：
+
+${\begin{pmatrix}x'\\y'\\z'\\1\end{pmatrix}}={\begin{pmatrix}cosβ&-sinβ&0&0\\sinβ&cosβ&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix}}{\begin{pmatrix}x\\y\\z\\1\end{pmatrix}}$
+
+在 WebGL 中，着色器提供了常用的矢量和矩阵的运算功能，我们可以将组合后的矩阵直接传递给顶点着色器，这样我们就可以一次性对图像旋转和平移。
+
+```js
+// 部分示例代码
+var ANGLE = 90.0; // 旋转角度
+var radian = (Math.PI * ANGLE) / 180.0;
+var cosB = Math.cos(radian);
+var sinB = Math.sin(radian);
+
+var xformMatrix = new Float32Array([
+  cosB,
+  sinB,
+  0.0,
+  0.0,
+  -sinB,
+  cosB,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  1.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  1.0,
+]);
+
+var u_xformMatrix = webGLContext.getUniformLocation(
+  webGLContext.program,
+  'u_xformMatrix'
+);
+
+// 将旋转矩阵传递给顶点着色器
+webGLContext.uniformMatrix4fv(u_xformMatrix, false, xformMatrix);
+```
+
+以上是一个简单的示意，在三维计算机图形学中还有许多类似的用例。
+
+## 参考
+
+- [矩阵定义及其简单应用](http://www.go60.top/wenzhang/juzhen/13.html)
+- [变换矩阵 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5)
+
+[diagonal_matrix]: https://zh.wikipedia.org/wiki/%E5%B0%8D%E8%A7%92%E7%9F%A9%E9%99%A3
+[scalar_matrix]: https://baike.baidu.com/item/%E6%95%B0%E9%87%8F%E7%9F%A9%E9%98%B5/11034374
