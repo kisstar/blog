@@ -112,7 +112,7 @@ yarn add -D commitizen
 
 如果你没有任何配置那么它和普通的提交方式一样，而当你通过配置指定 Adapter 后就可以进行交互式的提交。
 
-适配器 `@commitlint/cz-commitlint` 可以让 Commitizen 和 Commitizen 协同工作，将提交交给前者处理，后者负责进行校验。
+适配器 `@commitlint/cz-commitlint` 可以让 Commitizen 和 Commitlint 协同工作，将提交交给前者处理，后者负责进行校验。
 
 ```bash
 yarn add -D @commitlint/cz-commitlint
