@@ -39,6 +39,16 @@ module.exports = {
     des:
       'JavaScript ( JS ) 是一种具有函数优先的轻量级，解释型或即时编译型的编程语言。',
   },
+  Chrome: {
+    cover: '/images/tags/chrome.png',
+    des:
+      'Google Chrome 是由 Google 开发的免费网页浏览器，过去也用 Chrome 称呼浏览器的外框，作为前端程序员几乎每天都会和它打交道。',
+  },
+  DevTools: {
+    cover: '/images/tags/chrome-devtools.webp',
+    des:
+      'Chrome DevTools 是一套直接内置在谷歌 Chrome 浏览器中的 Web 开发工具。',
+  },
   'Egg.js': {
     cover: '/images/nodejs/eggjs.png',
     des:
