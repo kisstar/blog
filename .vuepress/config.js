@@ -13,6 +13,10 @@ module.exports = (ctx) => ({
   },
   // 主题配置
   themeConfig: {
+    banner: 'banner.jpg',
+    knownTitle: 'Kisstar',
+    subTitle:
+      "If you can't explain it simply, you don't understand it well enough.",
     // 导航栏的配置
     nav: [
       {
