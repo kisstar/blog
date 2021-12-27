@@ -104,4 +104,9 @@ module.exports = {
     des:
       '矩阵（Matrix）是一个按照长方阵列排列的复数或实数集合，元素为实数的矩阵为实矩阵。',
   },
+  'VS Code': {
+    cover: '/images/vscode/vscode.png',
+    des:
+      'Visual Studio Code（简称 VS Code）是一款由微软开发且跨平台的免费源代码编辑器。',
+  },
 };
