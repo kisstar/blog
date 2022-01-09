@@ -3,8 +3,8 @@ const tagInfo = require('./tagInfo');
 
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = process.env;
 
-module.exports = (ctx) => ({
-  theme: 'vuepress-theme-extreme',
+module.exports = () => ({
+  theme: '@kisstar/vuepress-theme-extreme',
   title: "Kisstar's 博客",
   locales: {
     '/': {
@@ -86,5 +86,12 @@ module.exports = (ctx) => ({
     },
     // 搜索
     searchPlaceholder: 'What are you looking for?',
+  },
+  markdown: {
+    extendMarkdown: (md) => {
+      const mathjax3 = require('markdown-it-mathjax3');
+
+      md.use(mathjax3);
+    },
   },
 });
