@@ -94,4 +94,5 @@ module.exports = () => ({
       md.use(mathjax3);
     },
   },
+  plugins: [require('../plugins/mathjax')],
 });
