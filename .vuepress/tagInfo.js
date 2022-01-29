@@ -109,4 +109,9 @@ module.exports = {
     des:
       'Visual Studio Code（简称 VS Code）是一款由微软开发且跨平台的免费源代码编辑器。',
   },
+  Audio: {
+    cover: '/images/audio/audio.png',
+    des:
+      '声音（sound）是由物体振动产生的声波。是通过介质（空气或固体、液体）传播并能被人或动物听觉器官所感知的波动现象。',
+  },
 };
