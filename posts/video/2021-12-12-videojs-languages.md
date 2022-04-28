@@ -1,5 +1,5 @@
 ---
-thumbnail: /images/video/videojs/videojs-languages.jpeg
+thumbnail: /images/video/videojs/videojs-languages.png
 title: Video.js 国际化
 summary: Video.js 提供了对国际化的支持，会使用一个 JSON 对象来描述一种语言，可以在适当的情况下以英语以外的语言显示文案。
 author: Kisstar
@@ -10,7 +10,7 @@ tags:
   - Video.js
 ---
 
-<img :src="$withBase('/images/video/videojs/videojs-languages.jpeg')" alt="videojs-languages">
+<img :src="$withBase('/images/video/videojs/videojs-languages.png')" alt="videojs-languages">
 
 Video.js 提供了对国际化的支持，可以在适当的情况下以英语以外的语言显示文案。
 
