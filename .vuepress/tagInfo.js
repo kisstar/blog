@@ -114,4 +114,9 @@ module.exports = {
     des:
       '声音（sound）是由物体振动产生的声波。是通过介质（空气或固体、液体）传播并能被人或动物听觉器官所感知的波动现象。',
   },
+  Flv: {
+    cover: '/images/video/flv/flv.jpeg',
+    des:
+      'Flash Video 是一种网络视频格式，用作串流媒体格式，它的出现有效地解决了视频文件导入 Flash 后，使导出的 SWF 文件体积庞大等缺点。',
+  },
 };
