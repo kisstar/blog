@@ -7,8 +7,7 @@
     "build": "vuepress build .",
     "commit": "git-cz",
     "predeploy": "npm run build",
-    "deploy:gb": "node scripts/ghpages.js",
-    "deploy": "npm run deploy:gb"
+    "deploy": "node scripts/ghpages.js"
   },
   "repository": "https://github.com/kisstar/blog.git",
   "author": "kisstar <dwh.chn@foxmail.com>",
@@ -31,6 +30,7 @@
     "gh-pages": "^3.2.3",
     "husky": "^8.0.1",
     "markdown-it-mathjax3": "^3.1.1",
+    "minimist": "^1.2.6",
     "vuepress": "^1.8.2"
   },
   "license": "MIT"
