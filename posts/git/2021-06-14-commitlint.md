@@ -1,5 +1,5 @@
 ---
-thumbnail: /images/git/git.png
+thumbnail: /images/git/git-lint.png
 title: Git Commit 规范
 summary: 每一条提交信息都应该是有意义的，遵循规范的友好提交信息更能体现出它的价值，包括但不仅包括高可读性、方便分类和利于问题追溯。
 author: Kisstar
@@ -11,19 +11,19 @@ tags:
 
 <img
   style="width: 100%; height: 350px; box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;"
-  :src="$withBase('/images/git/git.png')"
+  :src="$withBase('/images/git/git-lint.png')"
   alt="git"
 />
 
 每一条提交信息都应该是有意义的，遵循规范的友好提交信息更能体现出它的价值。
 
-- 高可读性: 利于 CR，Reviewer 可以明确本次提交的目的。
-- 方便分类: 自动生成变更日志。对于一些 SDK 而言，可以查看每次版本升级的改动点。
+- 高可读性: 利于 CR，Reviewer 可以明确本次提交的目的；
+- 方便分类: 自动生成变更日志。对于一些 SDK 而言，可以查看每次版本升级的改动点；
 - 利于追溯: 定位问题时可以快速确定范围（代码、影响）。
 
 ## Conventional Commits
 
-社区有多种 Commit message 的写法规范，其中 [Conventional Commits 规范][1] 是目前使用比较广的，其中各项规定也比较合理和系统化。
+社区有多种 Commit message 的写法规范，其中 [Conventional Commits 规范][1] 是目前使用比较广的，它的各项规定也比较合理和系统化。
 
 在该规范下，提交消息的结构应如下所示：
 
@@ -58,7 +58,7 @@ tags:
 
 ## Commitlint
 
-现在规范已经有了，接下来需要保证大家能够遵守规范。和 ESLint 一样，Commitlint 自身提供了检测的功能和一些最基础的规则。
+规范已经有了，接下来需要保证大家能够遵守规范。和 ESLint 一样，Commitlint 自身提供了检测的功能和一些最基础的规则。
 
 按照官网的介绍，Commitlint 会检查提交消息是否符合上面我们介绍的规范。要在项目中使用 Commitlint 需要先按照相关的依赖：
 
@@ -67,7 +67,7 @@ tags:
 yarn add -D @commitlint/cli @commitlint/config-conventional
 ```
 
-然后，进行简单的配置：
+然后，配置应该使用的校验规则：
 
 ```bash
 echo "module.exports = {extends: ['@commitlint/config-conventional']};" > commitlint.config.js
@@ -86,17 +86,18 @@ yarn husky install
 npx husky add .husky/commit-msg 'npx --no-install commitlint --edit "$1"'
 ```
 
-现在，规范终于落地了。
+现在，规范终于可以落地了。
 
 ## Adapter
 
-刚开始使用的时候，我们对提交规范可能会比较陌生，不知道存在哪些选项，又或者需要怎样选择，因此交互式的提交方式是有必要的。
+刚开始使用的时候，我们对提交规范可能会比较陌生，不知道存在哪些选项，又或者应该怎样选择，因此交互式的提交方式是有必要的。
 
 官方提供了 `@commitlint/prompt-cli` 来帮助快速编写提交消息，并确保它们遵守在配置文件中配置的提交约定。
 
 由于其交互模式差强人意，人们使用更多的提交工具是 Commitizen，当你使用它进行提交时系统也将提示你需要填写的所有必需提交字段。
 
 ```bash
+# 安装
 yarn add -D commitizen
 ```
 
@@ -115,8 +116,11 @@ yarn add -D commitizen
 适配器 `@commitlint/cz-commitlint` 可以让 Commitizen 和 Commitlint 协同工作，将提交交给前者处理，后者负责进行校验。
 
 ```bash
+# 安装
 yarn add -D @commitlint/cz-commitlint
 ```
+
+然后，配置交互式的方式：
 
 ```json
 {
@@ -134,7 +138,7 @@ yarn add -D @commitlint/cz-commitlint
 
 如果你觉得其中一些规则并不合需求，你也可以根据需要进行自定义，在一些团队协同中，这可能是比较常见的需求。
 
-对于默认支持的规则，你可以在配置文件（./commitlint.config.js）的 `rules` 字段进行配置。配置项由名称和配置数组组成，配置数组的项包含：
+对于 Commitlint 默认支持的规则，你可以在配置文件（./commitlint.config.js）的 `rules` 字段进行配置。配置项由名称和配置数组组成，配置数组的项包含：
 
 - Level: 0 - 禁用，1 - 警告，2 - 错误。
 - Applicable: always|never，never 表示反转规则。
@@ -181,8 +185,8 @@ module.exports = {
   rules: {
     'dollar-sign': function(parsed, when, value) {
       // rule implementation ...
-    },
-  },
+    }
+  }
 };
 ```
 
@@ -203,9 +207,9 @@ module.exports = {
       min: '%d chars at least', // 提示最小字符数
       emptyWarning: 'can not be empty', // 字段不能为空
       upperLimitWarning: 'over limit', // 超过字符限制
-      lowerLimitWarning: 'below limit', // 字符数小于下限
-    },
-  },
+      lowerLimitWarning: 'below limit' // 字符数小于下限
+    }
+  }
 };
 ```
 
@@ -221,16 +225,16 @@ module.exports = {
           feat: {
             description: 'A new feature',
             title: 'Features',
-            emoji: '✨',
-          },
-        },
+            emoji: '✨'
+          }
+        }
       },
       scope: {
         description:
-          'What is the scope of this change (e.g. component or file name)',
-      },
-    },
-  },
+          'What is the scope of this change (e.g. component or file name)'
+      }
+    }
+  }
 };
 ```
 
@@ -260,7 +264,7 @@ const Configuration = {
   /*
    * Functions that return true if commitlint should ignore the given message.
    */
-  ignores: [(commit) => commit === ''],
+  ignores: [commit => commit === ''],
   /*
    * Whether commitlint uses the default ignore rules.
    */
@@ -269,7 +273,7 @@ const Configuration = {
    * Custom URL to show upon failure
    */
   helpUrl:
-    'https://github.com/conventional-changelog/commitlint/#what-is-commitlint',
+    'https://github.com/conventional-changelog/commitlint/#what-is-commitlint'
 };
 
 module.exports = Configuration;
@@ -282,18 +286,20 @@ module.exports = Configuration;
 在一个全新的项目中，如果你们没有特殊要求，使用 Conventional Commits 规范你只需要安装一下依赖，添加钩子校验：
 
 ```bash
+# For interactive commit
 yarn add -D @commitlint/cli @commitlint/config-conventional
 
+# For Specification validation
+yarn add -D @commitlint/cz-commitlint commitizen
+
 # Install Husky v6
-yarn add husky --dev
+yarn add -D husky
 
 # Activate hooks
 yarn husky install
 
 # Add hook
 npx husky add .husky/commit-msg 'npx --no-install commitlint --edit "$1"'
-
-yarn add -D @commitlint/cz-commitlint commitizen
 ```
 
 然后，再添加上命令和交互式配置就可以了：
@@ -308,6 +314,9 @@ yarn add -D @commitlint/cz-commitlint commitizen
     "commitizen": {
       "path": "@commitlint/cz-commitlint"
     }
+  },
+  "commitlint": {
+    "extends": ["@commitlint/config-conventional"]
   }
 }
 ```
