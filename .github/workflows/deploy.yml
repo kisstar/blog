@@ -23,25 +23,40 @@ jobs:
       - name: Install packages
         run: npm install
 
-      - name: Builds & deploy with gh-pages
-        run: npm run deploy -- -r https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+      - name: Builds the app for production
+        run: npm run build
+
+      - name: Set git user information
+        run: |
+          git config user.name $USER_NAME
+          git config user.email $USER_EMAIL
+        env:
+          USER_NAME: kisstar
+          USER_EMAIL: dwh.chn@foxmail.com
+
+      - name: Deploy with gh-pages for GitHub
+        run: |
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          npx gh-pages -d .vuepress/dist -b master
+          git remote remove origin
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GITHUB_REPOSITORY: kisstar.github.io
 
       - name: Set ssh key
         run: |
-          mkdir -p ~/.ssh
+          mkdir -p ~/.ssh/
           echo "$GITEE_TOKEN" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan "$GITEE_IP" >> ~/.ssh/known_hosts
+          ssh-keyscan gitee.com >> ~/.ssh/known_hosts
         env:
-          GITEE_IP: 212.64.63.190
           GITEE_TOKEN: ${{ secrets.GITEE_ACCESS_TOKEN }}
 
-      - name: Deploy with gh-pages
+      - name: Deploy with gh-pages for Gitee
         run: |
-          gh-pages -d .vuepress/dist -b master -r git@gitee.com:dongwanhong/${GITEE_REPOSITORY}.git
+          git remote add origin git@gitee.com:dongwanhong/${GITEE_REPOSITORY}.git
+          npx gh-pages -d .vuepress/dist -b master
+          git remote remove origin
         env:
           GITEE_REPOSITORY: dongwanhong
 
