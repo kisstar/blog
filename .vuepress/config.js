@@ -13,7 +13,7 @@ module.exports = () => ({
   },
   // 主题配置
   themeConfig: {
-    banner: 'banner.jpg',
+    banner: 'banner.png',
     knownTitle: 'Kisstar',
     subTitle:
       "If you can't explain it simply, you don't understand it well enough.",
