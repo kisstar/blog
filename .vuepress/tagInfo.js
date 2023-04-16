@@ -119,4 +119,9 @@ module.exports = {
     des:
       'Flash Video 是一种网络视频格式，用作串流媒体格式，它的出现有效地解决了视频文件导入 Flash 后，使导出的 SWF 文件体积庞大等缺点。',
   },
+  Electron: {
+    cover: '/images/tags/electron.png',
+    des:
+      'Electron是一个使用 JavaScript、HTML 和 CSS 构建桌面应用程序的框架。',
+  },
 };
