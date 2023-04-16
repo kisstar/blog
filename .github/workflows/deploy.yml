@@ -37,7 +37,7 @@ jobs:
       - name: Deploy with gh-pages for GitHub
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          npx gh-pages -d .vuepress/dist -b master
+          npx gh-pages -d .vuepress/dist -b gh-pages
           git remote remove origin
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
