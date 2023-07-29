@@ -70,7 +70,7 @@ module.exports = () => ({
     editLinks: true,
     editLinkText: '在 GitHub 上编辑此页',
     repo: 'kisstar/blog',
-    docsDir: 'packages/docs/posts',
+    docsDir: '',
     lastUpdated: '最近更新',
     // 评论
     comment: {
