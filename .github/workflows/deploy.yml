@@ -35,13 +35,12 @@ jobs:
           USER_EMAIL: dwh.chn@foxmail.com
 
       - name: Deploy with gh-pages for GitHub
-        run: |
-          git remote set-url origin https://${GITHUB_TOKEN}@github.com/kisstar/${GITHUB_REPOSITORY}.git
-          npx gh-pages -d .vuepress/dist -b master
-          git remote remove origin
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          GITHUB_REPOSITORY: kisstar.github.io
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          repository-name: kisstar.github.io
+          branch: master
+          folder: .vuepress/dist
+          token: ${{ secrets.ACCESS_TOKEN }}
 
       - name: Set ssh key
         run: |
@@ -54,6 +53,7 @@ jobs:
 
       - name: Deploy with gh-pages for Gitee
         run: |
+          git remote remove origin
           git remote add origin git@gitee.com:dongwanhong/${GITEE_REPOSITORY}.git
           npx gh-pages -d .vuepress/dist -b master
           git remote remove origin
