@@ -10,7 +10,7 @@ tags:
   - Video.js
 ---
 
-<img :src="$withBase('/images/video/videojs/videojs-languages.png')" alt="videojs-languages">
+![videojs-languages](/images/video/videojs/videojs-languages.png)
 
 Video.js 提供了对国际化的支持，可以在适当的情况下以英语以外的语言显示文案。
 

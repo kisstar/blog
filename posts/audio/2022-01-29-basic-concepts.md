@@ -9,7 +9,7 @@ tags:
   - Audio
 ---
 
-<img :src="$withBase('/images/audio/audio.png')" alt="Audio">
+![Audio](/images/audio/audio.png)
 
 说到声音，大部分人首先都会想到优美的音乐，各种各样的乐器和劲爆十足的舞曲，这些其实都是声音中的一种。
 
@@ -21,13 +21,13 @@ tags:
 
 当演奏乐器或拍打桌子时，它们的振动会引起空气有节奏的振动，每个空气分子依次被推向它的邻居，然后它们的邻居再推动自己的邻居进行移动。
 
-<img :src="$withBase('/images/audio/air-molecules-action.gif')" alt="Air Molecules Action">
+![Air Molecules Action](/images/audio/air-molecules-action.gif)
 
 仔细观察其中一个红点，可以看到的是每个空气分子只是周而复始地前后振动一小段距离。由此使周围的空气产生了疏密变化，形成疏密相间的纵波，这就产生了声波。
 
 在实际的三维空间中，它更像是这样的：
 
-<img :src="$withBase('/images/audio/air-molecules-action-3d.gif')" alt="3D Air Molecules Action">
+![3D Air Molecules Action](/images/audio/air-molecules-action-3d.gif)
 
 但思路其实是一样的。仔细观察，让自己相信每一个空气分子在返回之前不会移动很远。所以粒子速度是一回事，波速是另一回事。
 
@@ -47,7 +47,7 @@ tags:
 
 毛细胞将波动转换为电刺激，从听神经传入大脑听觉中枢，由此我们并听到了外界的声音。
 
-<img :src="$withBase('/images/audio/listen-sound.png')" alt="Listen Sound">
+![Listen Sound](/images/audio/listen-sound.png)
 
 简而言之，空气的振动通过外耳、耳膜、听小骨、耳蜗和听神经转化生生物信号并传递给大脑，然后我们就感知到了声音的存在。
 
@@ -77,7 +77,7 @@ tags:
 
 当我们在高山或空旷地带高声大喊的时候，经常会听到回声。之所以会有回声是因为声音在传播过程中遇到障碍物会反弹回来，再次被我们听到。
 
-<img :src="$withBase('/images/audio/echoes.png')" alt="Echoes">
+![Echoes](/images/audio/echoes.png)
 
 声呐装置是利用回声的典型应用，它借助回收机制测海深、测冰山的距离和敌方潜艇的方位。另外，回声在地质勘探中也有广泛的应用。
 
@@ -93,7 +93,7 @@ tags:
 
 频率决定了声音的高低（高音、低音），也就是音调。频率越高音调越高，人耳听觉范围在 20 ～ 20000Hz。20Hz 以下称为次声波，20000Hz 以上称为超声波。
 
-<img :src="$withBase('/images/audio/frequency.png')" alt="Frequency">
+![Frequency](/images/audio/frequency.png)
 
 响度其实就是能量大小的反映，也就是我们通常说的音量，用不同的力度敲击桌子，声音的大小也会不同。在生活中，分贝常用于描述响度的大小。声音超过一定的分贝，人类的耳朵就会受不了。
 
@@ -107,7 +107,7 @@ tags:
 
 比如上学时粉笔划过黑板发出的那种声音，相对于天空中的一声炸雷而言所包含的能量是微不足道的，但是却能让我们听出一声冷汗。这是因为我们人类的听觉系统对不同频率的音频信号在灵敏度上有很大差别（敏感度：中高频 > 高频 > 低频）。
 
-<img :src="$withBase('/images/audio/basic-concepts/volume.jpeg')" alt="Volume">
+![Volume](/images/audio/basic-concepts/volume.jpeg)
 
 事实上，人耳对响度的感知不是一个比较理想的线性对应关系，所以不能直接用响度来作为参考标准去测量和计算，为了解决这个问题人们就提出了声压级的概念。
 
@@ -135,7 +135,7 @@ $${\displaystyle \mathrm {SPL} =10\lg \left({\frac {p}{p_{0}}}\right)^{2}\,\math
 
 对各个频率的声音做这样的听音比较，得出达到同样响度级时频率与声压级的关系曲线，这就是我们人耳的听觉等响曲线。
 
-<img :src="$withBase('/images/audio/basic-concepts/isoacoustic-curve.png')" alt="Isoacoustic Curve">
+![Isoacoustic Curve](/images/audio/basic-concepts/isoacoustic-curve.png)
 
 ## 附录
 
@@ -145,15 +145,15 @@ $${\displaystyle \mathrm {SPL} =10\lg \left({\frac {p}{p_{0}}}\right)^{2}\,\math
 - 周期：若一组事件或现象按同样的顺序重复出现，则把完成这一组事件或现象的时间或空间间隔，称为周期。不难得出，其值即为频率的倒数。
 - 振幅：是指振动的物理量可能达到的最大值，通常以 A 表示。
 
-<img :src="$withBase('/images/audio/basic-concepts/cycle-amplitude.png')" alt="Wavelength">
+![Wavelength](/images/audio/basic-concepts/cycle-amplitude.png)
 
 - 波长：是指波在一个振动周期内传播的距离。 也就是沿着波的传播方向，相邻两个振动位相相差 2π 的点之间的距离。
 
-<img :src="$withBase('/images/audio/basic-concepts/wavelength.jpeg')" alt="Wavelength">
+![Wavelength](/images/audio/basic-concepts/wavelength.jpeg)
 
 - 波形：表示信号的形状、形式，这个信号可以是波在物理介质上的移动，也可以是其他物理量的抽象表达形式。
 
-<img :src="$withBase('/images/audio/basic-concepts/waveforms.png')" alt="Waveforms">
+![Waveforms](/images/audio/basic-concepts/waveforms.png)
 
 - 有效声压：指在一定的时间间隔内，某点的瞬时声压对时间的均方根值。
 

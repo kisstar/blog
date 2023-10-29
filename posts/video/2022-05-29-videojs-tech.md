@@ -10,7 +10,7 @@ tags:
   - Video.js
 ---
 
-<img style="width: 100%; height: 350px;" :src="$withBase('/images/video/videojs/videojs-tech.png')" alt="Videojs Tech">
+<img style="width: 100%; height: 350px;" src="/images/video/videojs/videojs-tech.png" alt="Videojs Tech">
 
 Video.js 本身是一个提供了 UI 等交互能力的简易播放器，它支持基本的视频和音频播放能力，并确保它们在不同的播放技术中工作一致。
 

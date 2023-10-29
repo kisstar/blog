@@ -9,7 +9,7 @@ tags:
   - Electron
 ---
 
-<img style="width: 100%; height: 300px;" :src="$withBase('/images/electron/electron-events.png')" alt="Electron events">
+<img style="width: 100%; height: 300px;" src="/images/electron/electron-events.png" alt="Electron events">
 
 Electron 是一个使用 JavaScript、HTML 和 CSS 构建桌面应用程序的框架。在 Electron 中，进程使用 ipcMain 和 ipcRenderer 模块，通过开发人员定义的“通道”传递消息来进行进程间通信。
 
@@ -25,7 +25,7 @@ Electron 是一个使用 JavaScript、HTML 和 CSS 构建桌面应用程序的�
 
 如果想要将 IPC 消息从渲染器进程发送到主进程，可以通过 ipcRenderer.send API 发送消息，然后使用 ipcMain.on API 进行接收。
 
-<img :src="$withBase('/images/electron/renderer2main.png')" alt="Renderer to Main">
+![Renderer to Main](/images/electron/renderer2main.png)
 
 ```javascript
 // 主进程监听消息
@@ -41,7 +41,7 @@ ipcRenderer.send('channel-name', ...params);
 
 当我们通过 BrowserWindow 创建新的窗口时会返回对应的窗口实例，具体消息可以通过该实例上的 WebContents.send API 进行发送，其使用方式与 ipcRenderer.send API 相同。
 
-<img :src="$withBase('/images/electron/main2renderer.png')" alt="Main to Renderer">
+![Main to Renderer](/images/electron/main2renderer.png)
 
 ```javascript
 // 渲染进程中监听
@@ -56,7 +56,7 @@ mainWindow.webContents.send('channel-name', ...params);
 
 双向 IPC 的一个常见应用是从渲染器进程代码调用主进程模块并等待结果。 这可以通过搭配使用 ipcRenderer.invoke API 与 ipcMain.handle API 来完成。
 
-<img :src="$withBase('/images/electron/mr2rm.png')" alt="two-way">
+![two-way](/images/electron/mr2rm.png)
 
 ```javascript
 // 在主进程添加处理器
@@ -74,7 +74,7 @@ const result = await ipcRenderer.invoke('channel-name', ...params);
 
 框架中并没有提供直接的方法在渲染器进程之间发送消息，最简单的方式就是将主进程作为渲染器之间的消息代理。
 
-<img :src="$withBase('/images/electron/main-proxy.png')" alt="Proxy">
+![Proxy](/images/electron/main-proxy.png)
 
 ## 原生方式的缺陷
 
@@ -84,7 +84,7 @@ const result = await ipcRenderer.invoke('channel-name', ...params);
 
 更为麻烦的是，如果想要在渲染进程之间进行通信时，必须通过主进程做通信媒介，这将会使事件通信变得复杂而又难以理解、维护。
 
-<img :src="$withBase('/images/common/uncomfortable.gif')" alt="Uncomfortable">
+![Uncomfortable](/images/common/uncomfortable.gif)
 
 那么，是否有更简单的方式来在 Electron 中进行进程间通信呢？
 
@@ -171,7 +171,7 @@ windowPool.remove('app' /* window name */);
 
 对事件总线 EventBus 大家都比较了解，EventBus 通常作为多个模块间的通信机制，相当于一个事件管理中心，一个模块发送消息，其它模块并可以接受消息。
 
-<img :src="$withBase('/images/electron/event-bus.png')" alt="Event Bus">
+![Event Bus](/images/electron/event-bus.png)
 
 electron-events 提供的广播模式和 EventBus 非常类似，在该模式中主要包含消息订阅者和发布者两个角色，它们可以是主进程或者是任意一个渲染进程。
 
@@ -247,7 +247,7 @@ ipcRenderer.on(EVENT_CENTER, (_, { fromName, eventName, payload }) => {
 
 响应模式其实是一种应答模式。顾名思义，就是在发出事件之后可以得到对方的响应结果。对应的使用方式和框架提供的 ipcRenderer.invoke API 与 ipcMain.handle API 非常类似。
 
-<img :src="$withBase('/images/electron/reponse.png')" alt="Reponse">
+![Reponse](/images/electron/reponse.png)
 
 通过 electron-events 提供的响应试 API 进行通信时同样不必关系进程类型，你完全可以在主进程中发送事件并等待渲染进程的处理结果：
 
@@ -326,7 +326,7 @@ ipcRenderer.on(
 
 如你所见，当你使用 [electron-events](https://github.com/kisstar/electron-events) 进行事件通信时，你不关系进程相关的概念，只需要通过名称来进行指定触发和接受的对象，好比是在同一个进程中进行通信一样。
 
-<img :src="$withBase('/images/electron/electron-events-round.png')" height="300" alt="Electron events">
+![Electron events](/images/electron/electron-events-round.png" height="300)
 
 目前，[electron-events](https://github.com/kisstar/electron-events) 模块的源码提供在 GitHub，可以当做是一种参考，欢迎大家优化使用。
 

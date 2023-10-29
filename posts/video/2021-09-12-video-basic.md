@@ -9,7 +9,7 @@ tags:
   - Video
 ---
 
-<img style="width: 100%; height: 350px;" :src="$withBase('/images/video/video.jpeg')" alt="video">
+<img style="width: 100%; height: 350px;" src="/images/video/video.jpeg" alt="video">
 
 视频是一种电子媒体，主要是用于记录、复制、播放、广播和显示移动的。
 
@@ -36,7 +36,7 @@ tags:
 
 假设一个屏幕的分辨率是 1920×1080，说明水平方向有 1920 个像素点，垂直方向有 1080 个像素点，所以整个屏幕就有 1920×1080 个像素点。
 
-<img :src="$withBase('/images/video/resolution.png')" alt="resolution">
+![resolution](/images/video/resolution.png)
 
 每个像素点都由三个子像素点组成。当要显示某篇文字或者某幅图像时，就会把这幅图像的每一个像素点的 RGB 通道分别对应的屏幕位置上的子像素点绘制到屏幕上，从而显示整个图像。
 
@@ -44,7 +44,7 @@ RGB 颜色模型，是一种加色模型，将红（Red）、绿（Green）、�
 
 那么一个像素点的 RGB 该如何表示呢？通常用 8 个比特来表示一个子像素，也就是 24 个比特一个像素。如此就可以产生一千六百万种颜色组合，对人类的眼睛来说，其中有许多颜色已经无法确切的分辨。
 
-<img style="height: 300px;" :src="$withBase('/images/video/rgb.png')" alt="rgb">
+<img style="height: 300px;" src="/images/video/rgb.png" alt="rgb">
 
 对于一幅 1920×1080 的图像，如果采用 24 比特模式来存储的话，那么它将占据的大小为：
 
@@ -58,7 +58,7 @@ $1920*1080*8*3/8/1024/1024\approx6M$
 
 YUV 中“Y”表示明亮度 (Luminance 或 Luma)，也称灰阶值；而“U”和“V”表示的则是色度 (Chrominance 或 Chroma)，它们的作用是描述影像的色彩及饱和度， 用于指定像素的颜色。
 
-<img :src="$withBase('/images/video/ycrcb.png')" alt="yCrCb">
+![yCrCb](/images/video/ycrcb.png)
 
 和 RGB 表示图像类似，每个像素点都包含 Y、U、V 分量。但是它的 Y 和 UV 分量是可以分离的，如果没有 UV 分量一样可以显示完整的图像，只不过是黑白的。
 
@@ -70,7 +70,7 @@ YUV 中“Y”表示明亮度 (Luminance 或 Luma)，也称灰阶值；而“U�
 - 4:2:2 表示 2:1 的水平取样，垂直完全采样。
 - 4:2:0 表示 2:1 的水平取样，垂直 2:1 采样。
 
-<img :src="$withBase('/images/video/yuv.png')" alt="yuv">
+![yuv](/images/video/yuv.png)
 
 以 4:2:0 的采样方式为例，它的含义并非不采样 V 分量。而是说，每一行扫描时，只扫描一种色度分量（U 或者 V），并保持和 Y 分量按照 2 : 1 的方式采样。
 
@@ -86,7 +86,7 @@ YUV 作为一种颜色编码系统，许多专有名词都被称作此名，在�
 
 在 YCbCr 中，Y 与 YUV 中的 Y 含义一致，Cb 和 Cr 与 UV 同样都指色彩，Cb 指蓝色色度（反应了 RGB 输入信号蓝色部分与 RGB 信号亮度值之间的差异），Cr 则是指红色色度。
 
-<img style="height: 400px;" :src="$withBase('/images/video/uv.png')" alt="uv">
+<img style="height: 400px;" src="/images/video/uv.png" alt="uv">
 
 虽然 YUV 颜色空间在传输时可以减少带宽，但是在渲染到屏幕上时(文字、图片或者其他)，都要转换为 RGB 的表示形式。
 
@@ -98,7 +98,7 @@ YUV 作为一种颜色编码系统，许多专有名词都被称作此名，在�
 
 无论是以 RGB 还是以 YCbCr 来直接表示视频的裸数据结果都太大了。试想一下，一步时长为 2 小时、清晰度为 1920x1080P 的电影采用 24bpp 位深度进行存储会有多大？
 
-<img :src="$withBase('/images/video/size.png')" alt="size">
+![size](/images/video/size.png)
 
 这属实是太夸张了！幸运的是，视频数据具有极强的相关性，也就是说存在大量的冗余信息，包括但不仅是：
 
@@ -108,7 +108,7 @@ YUV 作为一种颜色编码系统，许多专有名词都被称作此名，在�
 
 所以，我们需要对视频进行编码，通过消除连续图像之间的冗余信息来压缩视频。而要实现压缩，就要设计各种算法，也就是相关的编码技术。
 
-<img :src="$withBase('/images/video/codec.png')" alt="codec">
+![codec](/images/video/codec.png)
 
 随着编码技术的发展，人们对视频的压缩程度越来越高，质量也越来越好。在压缩算法中，IPB 帧就是最常见的一种。
 
@@ -124,7 +124,7 @@ YUV 作为一种颜色编码系统，许多专有名词都被称作此名，在�
 
 比如一个视频中，帧的显示顺序是：I B B P，而在解码 B 帧时需要知道 P 帧中信息，所以需要先对 P 帧进行解码。
 
-<img :src="$withBase('/images/video/dpts.png')" alt="dpts">
+![dpts](/images/video/dpts.png)
 
 另外，由于 H264 采用了多帧预测，所以 I 帧之后的 P 帧有可能会参考 I 帧之前的帧，而 IDR 帧 就是一种特殊的 I 帧，即这一帧之后的所有参考帧只会参考到这个 IDR 帧，而不会再参考前面的帧。
 
@@ -136,13 +136,13 @@ YUV 作为一种颜色编码系统，许多专有名词都被称作此名，在�
 
 由于计算机只认识 0 和 1，所以我们需要将连续的模拟声波波形转换为连串的二进制数。为此，我们需要对模拟信号进行采样、量化和编码。
 
-<img :src="$withBase('/images/video/sampling.png')" alt="sampling">
+![sampling](/images/video/sampling.png)
 
 根据奈奎斯特定理(也称为采样定理)，按比声音最高频率高 2 倍以上的频率对声音进行采样(也称为 AD 转换)。人类耳朵的听力有一个频率范围，大约是 20Hz~20kHz，所以采样频率一般为 44.1kHz。
 
 那么，具体的每个采样又该如何表示呢？这就需要在幅度轴上对信号进行量化。
 
-<img :src="$withBase('/images/video/quantification.png')" alt="quantification">
+![quantification](/images/video/quantification.png)
 
 量化是指在幅度轴上对信号进行数字化，比如用 16 比特 的二进制信号来表示声音的一个采样，而 16 比特(一个 short)所表示的 范围是[-32768，32767]，共有 65536 个可能取值，因此最终模拟的音频 信号在幅度上也分为了 65536 层。
 
@@ -188,7 +188,7 @@ $44100x16x2x60/8/1024/1024\approx10M$
 
 在通过不同的协议获取到视频之后就可以交给播放器进行播放了。频播放器播放一个互联网上的视频文件，需要经过以下几个步骤：解协议，解封装，解码和音视频同步。
 
-<img style="height: 450px;" :src="$withBase('/images/video/play.png')" alt="play">
+<img style="height: 450px;" src="/images/video/play.png" alt="play">
 
 视频的播放和之前的采集、编码等操作刚好是相逆的。当通过流媒体协议获取到视频之后，就会将封装格式数据分离成为音频编码数据和视频编码数据。
 

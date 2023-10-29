@@ -1,10 +1,9 @@
 {
   "name": "blog",
-  "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "dev": "vuepress dev .",
-    "build": "vuepress build .",
+    "dev": "vitepress dev posts",
+    "build": "vitepress build posts",
     "commit": "git-cz"
   },
   "repository": "https://github.com/kisstar/blog.git",
@@ -23,14 +22,10 @@
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
     "@commitlint/cz-commitlint": "^17.0.3",
-    "@kisstar/vuepress-theme-extreme": "^0.0.2",
     "commitizen": "^4.2.5",
-    "dotenv": "^10.0.0",
-    "gh-pages": "^3.2.3",
     "husky": "^8.0.1",
-    "less-loader": "^6.2.0",
-    "markdown-it-mathjax3": "^3.1.1",
-    "vuepress": "^1.8.2"
+    "markdown-it-mathjax3": "^4.3.2",
+    "vitepress": "1.0.0-rc.24"
   },
   "license": "MIT"
 }

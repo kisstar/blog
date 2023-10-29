@@ -9,7 +9,7 @@ tags:
   - CSS
 ---
 
-<img :src="$withBase('/images/comprehensive/parallax-scrolling.png')" alt="parallax scrolling">
+![parallax scrolling](/images/comprehensive/parallax-scrolling.png)
 
 视差滚动（Parallax Scrolling）是指让多层背景以不同的速度移动，形成立体的运动效果。
 
@@ -99,7 +99,7 @@ CSS transforms 由一系列 CSS 属性实现，通过使用这些属性，可以
 
 CSS 属性 `perspective` 属性值设置与对象平面的距离，或者换句话说，设置透视的强度。
 
-<img :src="$withBase('/images/comprehensive/css-coordinate.jpg')" alt="css coordinate">
+![css coordinate](/images/comprehensive/css-coordinate.jpg)
 
 当 z>0 时三维元素比正常大，而 z<0 时则比正常小，这很符合我们近大远小的道理。那么如何借此实现视差滚动呢？
 
@@ -144,7 +144,7 @@ CSS 属性 `perspective` 属性值设置与对象平面的距离，或者换句�
 
 在上面的代码中，透视距离是 2px，视差子元素的 Z 轴距离是 -1px。这样的话元素需要放大 1.5 倍，那么是怎么得来的呢？
 
-<img :src="$withBase('/images/comprehensive/similar-triangles.png')" alt="similar triangles">
+![similar triangles](/images/comprehensive/similar-triangles.png)
 
 由图可见我们的物体（de）在使用视差后实际看到的是屏幕（be）的大小，为了还原真实的大小我们就需要知道 be/de 之间的比值。
 
@@ -158,7 +158,7 @@ CSS 属性 `perspective` 属性值设置与对象平面的距离，或者换句�
 
 当马里奥移动时，墙块和路上的障碍物和马里奥在同一平层，移动速度最快。天上的白云作为中层背景图像，移动速度次之。而远方的山丘，移动速度最慢。
 
-<img :src="$withBase('/images/comprehensive/mario.png')" alt="mario">
+![mario](/images/comprehensive/mario.png)
 
 三个层次的内容按照不同速度移动，并呈现了立体的视差效果。
 
@@ -255,7 +255,7 @@ addEventListener('scroll', render);
 
 下面是一个简单的纯 CSS 实现的动画效果：
 
-<img :src="$withBase('/images/comprehensive/qixi.png')" alt="七夕">
+![七夕](/images/comprehensive/qixi.png)
 
 可见 CSS 的动画能力已经很不错了，再结合脚本配合起来，发挥想象并能创建一些有趣的视差动画。
 

@@ -10,7 +10,7 @@ tags:
   - Video.js
 ---
 
-<img style="width: 100%; height: 350px;" :src="$withBase('/images/video/videojs/videojs-modal.png')" alt="Videojs Modal">
+<img style="width: 100%; height: 350px;" src="/images/video/videojs/videojs-modal.png" alt="Videojs Modal">
 
 ModalDialog 组件是 Video.js 核心的一部分，它为完整的播放器覆盖提供了一个 UI。
 

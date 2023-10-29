@@ -12,7 +12,7 @@ tags:
 ---
 
 <a href="https://github.com/kisstar/demo/tree/master/modules/react-redux" title="点击查看完整代码">
-  <img style="width: 100%" :src="$withBase('/images/react/react-redux.jpeg')" alt="react-redux">
+  <img style="width: 100%" src="/images/react/react-redux.jpeg" alt="react-redux">
 </a>
 
 `Redux` 是 `JavaScript` 状态容器，提供可预测化的状态管理。需要注意的是，它不单单是为 `React` 项目工作，所以针对特定的环境来说并不是很友好。

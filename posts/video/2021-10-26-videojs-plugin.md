@@ -10,7 +10,7 @@ tags:
   - Video.js
 ---
 
-<img :src="$withBase('/images/video/videojs/videojs-plugin.png')" alt="videojs-plugin">
+![videojs-plugin](/images/video/videojs/videojs-plugin.png)
 
 插件是一种遵循一定规范的应用程序接口编写出来的程序，它允许开发者根据自己的需要对框架的功能进行补充和延伸。
 

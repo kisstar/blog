@@ -11,7 +11,7 @@ tags:
 
 <img
   style="width: 100%; height: 350px; box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;"
-  :src="$withBase('/images/audio/digital-audio.jpeg')"
+  src="/images/audio/digital-audio.jpeg"
   alt="Digital Audio"
 />
 
@@ -23,7 +23,7 @@ tags:
 
 计算机数据的存储是以 0、1 的形式存取的，那么数字音频就是首先将音频文件转化，接着再将这些电平信号转化成二进制数据保存。
 
-<img :src="$withBase('/images/audio/digital-audio/analog-signal-to-digital-signal.jpeg')" alt="AnalogSignal2DigitalSignal">
+![AnalogSignal2DigitalSignal](/images/audio/digital-audio/analog-signal-to-digital-signal.jpeg)
 
 将模拟音频转换为数字音频的过程采用了模数转换（A/D）技术。所谓模数转换就是将模拟信号转化为数字信号，转换过程包括采样、量化和编码三个步骤。
 
@@ -33,7 +33,7 @@ tags:
 
 如下是同一波形的两种采样率对比，可以看到低采样率的 A 采样波形严重失真，而高采样率的 B 则几乎完全重现原始波形：
 
-<img :src="$withBase('/images/audio/digital-audio/sampling.png')" alt="Sampling">
+![Sampling](/images/audio/digital-audio/sampling.png)
 
 根据奈奎斯特定理（也称为采样定理），按比声音最高频率高 2 倍以上的频率对声音进行采样(也称为 AD 转换)。
 
@@ -56,7 +56,7 @@ tags:
 
 量化是指在幅度轴上对信号进行数字化，比如用 16 比特 的二进制信号来表示声音的一个采样，而 16 比特（一个 short）所表示的 范围是 `[-32768，32767]`，共有 65536 个可能取值，因此最终模拟的音频 信号在幅度上也分为了 65536 层。
 
-<img :src="$withBase('/images/audio/digital-audio/quantification.gif')" alt="Quantification">
+![Quantification](/images/audio/digital-audio/quantification.gif)
 
 每次采样存储着多少比特（英语：bit）的信息成为音频位深度，其数值数值直接对应着每次采样的分辨率。
 
@@ -115,7 +115,7 @@ PCM 文件没有头部信息，全部是采样量化后的未压缩音频数据�
 
 如果是双声道音频，则按照 LRLRLR 方式存储，每个采样点的存储方式还与字节序有关。大端字节序如下图所示：
 
-<img :src="$withBase('/images/audio/digital-audio/data-storage.png')" alt="PCM Data Storage">
+![PCM Data Storage](/images/audio/digital-audio/data-storage.png)
 
 关于字节序，可查看[理解字节序](https://www.ruanyifeng.com/blog/2016/11/byte-order.html)。
 
@@ -156,19 +156,19 @@ PCM 文件没有头部信息，全部是采样量化后的未压缩音频数据�
 
 常用的音频编码格式与文件格式的对应关系总结如下：
 
-<img :src="$withBase('/images/audio/digital-audio/audio-format.png')" alt="Audio Format">
+![Audio Format](/images/audio/digital-audio/audio-format.png)
 
 ## 总结
 
 在模拟信号系统中，声音由空气中传递的声波透过转换器（例如麦克风）转存成电流信号的电波。而重现声音则是相反的过程，透过放大器将电子信号转成物理声波，再借由扩音器播放。
 
-<img height="450" :src="$withBase('/images/audio/digital-audio/audio-data-conversion.png')" alt="Audio Data Conversion">
+<img height="450" src="/images/audio/digital-audio/audio-data-conversion.png" alt="Audio Data Conversion">
 
 经过转存、编码、复制以及放大或许会丧失声音的真实度，但仍然能够保持与其基音、声音特色相似的波形。模拟信号容易受到噪音及变形的影响，相关器材电路所产生的电流更是无可避免。在信号较为纯净的录音里，整个过程里仍然存有许多噪音及有损。
 
 数字声音和一般磁带、广播、电视中的声音就存储播放方式而言有着本质区别。当音频数字化后，有损及噪音只在数字及模拟间转换时产生。
 
-<img :src="$withBase('/images/audio/digital-audio/pcm-codec.jpeg')" alt="PCM Codec">
+![PCM Codec](/images/audio/digital-audio/pcm-codec.jpeg)
 
 相比而言，它具有存储方便、存储成本低廉、存储和传输的过程中没有声音的失真、编辑和处理非常方便等特点。
 

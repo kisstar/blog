@@ -10,7 +10,7 @@ tags:
   - Video.js
 ---
 
-<img style="width: 100%; height: 350px;" :src="$withBase('/images/video/videojs/videojs-middleware.png')" alt="Videojs Middleware">
+<img style="width: 100%; height: 350px;" src="/images/video/videojs/videojs-middleware.png" alt="Videojs Middleware">
 
 中间件作为 Video.js 的一个特性，它允许 Player 和 Tech 进行交互并修改它们之间的通信方式。
 

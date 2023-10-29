@@ -11,7 +11,7 @@ tags:
 
 <img
   style="width: 100%; height: 350px; box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;"
-  :src="$withBase('/images/git/git-lint.png')"
+  src="/images/git/git-lint.png"
   alt="git"
 />
 

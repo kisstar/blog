@@ -10,7 +10,7 @@ tags:
   - Video.js
 ---
 
-<img style="width: 100%; height: 350px;" :src="$withBase('/images/video/videojs/videojs-logger.png')" alt="Videojs Logger">
+<img style="width: 100%; height: 350px;" src="/images/video/videojs/videojs-logger.png" alt="Videojs Logger">
 
 在 Video.js 中，日志管理主要是提供了前缀和等级配置功能，利用前缀可以很方便的识别日志来源，等级则便于针对不同的环境进行管理。
 

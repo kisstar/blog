@@ -11,7 +11,7 @@ tags:
 
 <img
   style="width: 100%; height: 350px; box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;"
-  :src="$withBase('/images/git/git-lint-custom.png')"
+  src="/images/git/git-lint-custom.png"
   alt="git"
 />
 
@@ -159,7 +159,7 @@ yarn add -D @commitlint/cz-commitlint
 
 在[commitizen][commitizen]的内部运行时会进行一些初始化工作，然后加载相应的配置文件，如果没有加载到将会使用普通的 Git 命令进行提交。
 
-<img :src="$withBase('/images/git/adapter-flow.png')" height="410" alt="adapter-flow">
+![adapter-flow](/images/git/adapter-flow.png" height="410)
 
 否则，将会调用指定 Adapter 的 `prompter()` 方法，从而获取到用户的提交信息，在钩子模式下会将其写入到工作目录下 `.git/COMMIT_EDITMSG` 文件中。
 
@@ -190,15 +190,15 @@ module.exports = {
 
 校验工具 [commitlint][commitlint] 是一个基于 [Yargs][yargs] 实现的一个命令行工具，它的核心流程主要包括获取提交信息-校验信息-输出报告：
 
-<img :src="$withBase('/images/git/lint-flow.png')" alt="lint-flw">
+![lint-flw](/images/git/lint-flow.png)
 
 几乎每个步骤都对应了一个相应的 NPM 模块：
 
-<img :src="$withBase('/images/git/lint-cli.png')" alt="lint-cli">
+![lint-cli](/images/git/lint-cli.png)
 
 在获取提交信息时，来源可以是从标准输入或者是从指定范围/上次编辑中读取提交消息：
 
-<img :src="$withBase('/images/git/get-lint-message.png')" height="350" alt="lint-message">
+![lint-message](/images/git/get-lint-message.png" height="350)
 
 获取到提交信息后，在校验之前还会进行一次解析，将提交消息解析为结构化数据，默认使用的是 [conventional-commits-parser][conventional-commits-parser] 模块中的 `sync()` 函数。
 

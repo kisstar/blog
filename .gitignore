@@ -21,6 +21,7 @@ yarn-error.log*
 .vuepress/dist
 /tmp
 /out-tsc
+dist
 
 # Runtime data
 pids
@@ -61,3 +62,6 @@ jspm_packages/
 
 # Env files
 .env
+
+# Cache directories
+cache

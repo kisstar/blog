@@ -9,7 +9,7 @@ tags:
   - Video
 ---
 
-<img style="width: 100%; height: 350px;" :src="$withBase('/images/video/basic/video-boy.jpeg')" alt="Video Boy">
+<img style="width: 100%; height: 350px;" src="/images/video/basic/video-boy.jpeg" alt="Video Boy">
 
 视频（英语：video, videogram）是泛指将一系列的静态影像以电信号方式加以捕捉、纪录、处理、存储、发送与重现的各种技术。
 
@@ -19,11 +19,11 @@ tags:
 
 我们常说的视频其实就是一张张图像。根据视觉暂留原理，当连续的图像变化超过每秒 24 张时，人眼无法辨别单幅的静态画面，看上去是平滑连续的视觉效果。
 
-<img :src="$withBase('/images/video/basic/image-queue.png')" alt="Image Queue">
+![Image Queue](/images/video/basic/image-queue.png)
 
 图像则是由一个个像素点组成的，一个分辨率为 m×n 的图像，说明水平方向有 m 个像素点，垂直方向有 n 个像素点。
 
-<img :src="$withBase('/images/video/basic/resolution-ratio.png')" alt="Resolution Ratio">
+![Resolution Ratio](/images/video/basic/resolution-ratio.png)
 
 每个像素点又由三个子像素点组成，当要显示图像时，就会把这幅图像的每一个像素点的 RGB 通道分别对应屏幕上的子像素点绘制到屏幕上，从而显示整个图像。
 
@@ -37,7 +37,7 @@ tags:
 
 以采用 RGB 颜色模型为例，它将红（Red）、绿（Green）、蓝（Blue）三原色的色光以不同的比例相加，以合成产生各种色彩光。那么，只需要表示出各个颜色的比例就能重现颜色。
 
-<img :src="$withBase('/images/video/basic/rgb.jpeg')" alt="RGB">
+![RGB](/images/video/basic/rgb.jpeg)
 
 数值表示可以使用以下几种不同的方式（以红色为例）：
 
@@ -65,7 +65,7 @@ $$24*1920*1080*24*60*60*2/8/1024/1024/1024/1024\approx0.98T$$
 
 后续了为了实现标准的一致性，由 ITU-T 和 MPEG 联合制作了 H.262/MPEG-2、H.264/MPEG-4 AVC、H.265/HEVC 等标准。目前 H.264 标准已经在各个领域得到了广泛的应用。
 
-<img :src="$withBase('/images/video/basic/codec.png')" alt="Codec">
+![Codec](/images/video/basic/codec.png)
 
 由于专利的原因，拥有更高性能的编码标准 H.265 并没有得到普及，为了应对高额的专利费用，开放媒体联盟（Alliance forOpenMedia）开始推行一个开放、免专利的视频编码格式 AOMedia Video 1（简称 AV1）。
 
@@ -75,7 +75,7 @@ $$24*1920*1080*24*60*60*2/8/1024/1024/1024/1024\approx0.98T$$
 
 容器不同于编解码器，具有相同容器的文件可以使用不同的编解码器来编码其内容，下图说明了这种结构：
 
-<img :src="$withBase('/images/video/basic/mux.png')" alt="Mux">
+![Mux](/images/video/basic/mux.png)
 
 播放视频时则需要进行反向的解封转、解码操作，最后再将资源交由媒体播放器处理。
 
@@ -145,7 +145,7 @@ HLS 的工作原理就是把整个流分成一个个小的基于 HTTP 的文件�
 
 在开始一个流媒体会话时，客户端会下载一个包含元数据的扩展 M3U (m3u8) 播放列表文件，用于寻找可用的媒体流。然后根据播放列表中的资源地址陆续下载一个个分片资源。
 
-<img :src="$withBase('/images/video/basic/hls.png')" alt="HLS">
+![HLS](/images/video/basic/hls.png)
 
 HLS 作为苹果推出的流媒体协议，在 IOS 平台上可以获得天然的支持。对于不支持 HLS 的设备也可以使用 HLS.js 库基于 MSE 在浏览器中实现 HLS 播放。
 
