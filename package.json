@@ -2,8 +2,8 @@
   "name": "blog",
   "private": true,
   "scripts": {
-    "dev": "vitepress dev posts",
-    "build": "vitepress build posts",
+    "dev": "vitepress dev src",
+    "build": "vitepress build src",
     "commit": "git-cz"
   },
   "repository": "https://github.com/kisstar/blog.git",

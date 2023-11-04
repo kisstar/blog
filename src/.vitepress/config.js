@@ -54,6 +54,9 @@ export default {
       copyright: 'Copyright © 2023-present Kisstar'
     }
   },
+  rewrites: {
+    '(.*)/:year-:month-:day-:name(.*)\.md': ':year/:month/:day/:name.md'
+  },
   markdown: {
     math: true
   }
