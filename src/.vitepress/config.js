@@ -42,7 +42,7 @@ export default {
     ],
     // 获取在原文编辑地址
     editLink: {
-      pattern: 'https://github.com/kisstar/blog/edit/master/posts/:path',
+      pattern: 'https://github.com/kisstar/blog/edit/next/src/:path',
       text: '在 GitHub 上编辑此页'
     },
     // 最近更新
@@ -55,8 +55,12 @@ export default {
     }
   },
   rewrites: {
-    '(.*)/:year-:month-:day-:name(.*)\.md': ':year/:month/:day/:name.md'
+    '(.*)/:year-:month-:day-:name(.*).md': ':year/:month/:day/:name.md'
   },
+  ignoreDeadLinks: [
+    // ignore all localhost links
+    /^https?:\/\/localhost/,
+  ],
   markdown: {
     math: true
   }

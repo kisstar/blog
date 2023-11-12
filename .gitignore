@@ -65,3 +65,7 @@ jspm_packages/
 
 # Cache directories
 cache
+
+# Yalc
+.yalc
+yalc.lock
