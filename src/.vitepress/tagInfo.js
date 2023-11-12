@@ -25,6 +25,11 @@ module.exports = {
     des:
       'Vue 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。',
   },
+  Vite: {
+    cover: '/images/vue/vite.png',
+    des:
+      'Vite（法语意为"快速的"，发音 /vit/ ，发音同"veet"）是一种新型前端构建工具，能够显著提升前端开发体验。',
+  },
   Vuex: {
     cover: '/images/vue/vuex.png',
     des:
