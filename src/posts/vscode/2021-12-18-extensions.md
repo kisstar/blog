@@ -5,11 +5,14 @@ summary: Visual Studio Code 在构建时考虑到了可扩展性。从 UI 到编
 author: Kisstar
 location: 北京
 date: 2021-12-18
-tags:
-  - VS Code
+categoryKeys:
+  - freebie
+tagKeys:
+  - vscode
+outline: deep
 ---
 
-![VSCode Extensions" style="width: 100%; height: 300px; box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;](/images/vscode/extensions.png)
+<img style="width: 100%; height: 300px; box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;" src="/images/vscode/extensions.png" alt="VSCode Extensions">
 
 Visual Studio Code 在构建时考虑到了可扩展性。从 UI 到编辑体验，几乎 VS Code 的每一部分都可以通过扩展 API 进行定制和增强。事实上，VS Code 的许多核心特性都是作为扩展构建的。
 

@@ -5,9 +5,12 @@ summary: 作为被广泛使用的 HTML5 视频播放器，Videojs 除了提供�
 author: Kisstar
 location: 北京
 date: 2021-10-26
-tags:
-  - Video
-  - Video.js
+categoryKeys:
+  - av
+tagKeys:
+  - video
+  - videojs
+outline: deep
 ---
 
 ![videojs-plugin](/images/video/videojs/videojs-plugin.png)

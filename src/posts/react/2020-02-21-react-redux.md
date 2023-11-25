@@ -5,10 +5,13 @@ summary: Redux 是 JavaScript 状态容器，它不单单是为 React 项目工�
 author: Kisstar
 location: 北京
 date: 2020-02-21
-tags:
-  - React
-  - Redux
-  - React-redux
+categoryKeys:
+  - frontend
+tagKeys:
+  - react
+  - redux
+  - reactRedux
+outline: deep
 ---
 
 <a href="https://github.com/kisstar/demo/tree/master/modules/react-redux" title="点击查看完整代码">

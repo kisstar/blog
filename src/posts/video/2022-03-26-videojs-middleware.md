@@ -5,9 +5,12 @@ summary: 中间件作为 Video.js 的一个特性，它允许 Player 和 Tech �
 author: Kisstar
 location: 北京
 date: 2022-03-26
-tags:
-  - Video
-  - Video.js
+categoryKeys:
+  - av
+tagKeys:
+  - video
+  - videojs
+outline: deep
 ---
 
 <img style="width: 100%; height: 350px;" src="/images/video/videojs/videojs-middleware.png" alt="Videojs Middleware">

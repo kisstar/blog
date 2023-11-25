@@ -5,8 +5,11 @@ summary: 声音（sound）是由物体振动产生的声波。是通过介质（
 author: Kisstar
 location: 北京
 date: 2022-01-29
-tags:
-  - Audio
+categoryKeys:
+  - av
+tagKeys:
+  - audio
+outline: deep
 ---
 
 ![Audio](/images/audio/audio.png)

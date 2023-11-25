@@ -5,9 +5,12 @@ summary: 在 Video.js 中，播放技术是指用于播放视频或音频的特�
 author: Kisstar
 location: 北京
 date: 2022-05-29
-tags:
-  - Video
-  - Video.js
+categoryKeys:
+  - av
+tagKeys:
+  - video
+  - videojs
+outline: deep
 ---
 
 <img style="width: 100%; height: 350px;" src="/images/video/videojs/videojs-tech.png" alt="Videojs Tech">

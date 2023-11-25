@@ -5,8 +5,11 @@ summary: 数字音频是指使用脉冲编码调制、数字信号来录音。�
 author: Kisstar
 location: 北京
 date: 2022-02-08
-tags:
-  - Audio
+categoryKeys:
+  - av
+tagKeys:
+  - audio
+outline: deep
 ---
 
 <img

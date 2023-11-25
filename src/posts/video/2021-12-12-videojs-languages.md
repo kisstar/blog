@@ -5,9 +5,12 @@ summary: Video.js 提供了对国际化的支持，会使用一个 JSON 对象�
 author: Kisstar
 location: 北京
 date: 2021-12-12
-tags:
-  - Video
-  - Video.js
+categoryKeys:
+  - av
+tagKeys:
+  - video
+  - videojs
+outline: deep
 ---
 
 ![videojs-languages](/images/video/videojs/videojs-languages.png)

@@ -5,8 +5,11 @@ summary: 友好的提交信息对于团队协作而言非常重要，在实际�
 author: Kisstar
 location: 北京
 date: 2022-07-31
-tags:
-  - Git
+categoryKeys:
+  - freebie
+tagKeys:
+  - git
+outline: deep
 ---
 
 <img

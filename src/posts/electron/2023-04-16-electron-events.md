@@ -5,8 +5,11 @@ summary: 在大型复杂应用中 Electron 内部提供的 IPC 通信方案存�
 author: Kisstar
 location: 北京
 date: 2023-04-16
-tags:
-  - Electron
+categoryKeys:
+  - frontend
+tagKeys:
+  - electron
+outline: deep
 ---
 
 <img style="width: 100%; height: 300px;" src="/images/electron/electron-events.png" alt="Electron events">

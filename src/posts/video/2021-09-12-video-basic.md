@@ -5,8 +5,11 @@ summary: 视频是一种电子媒体，用于记录、复制、播放、广播�
 author: Kisstar
 location: 北京
 date: 2021-09-12
-tags:
-  - Video
+categoryKeys:
+  - av
+tagKeys:
+  - video
+outline: deep
 ---
 
 <img style="width: 100%; height: 350px;" src="/images/video/video.jpeg" alt="video">

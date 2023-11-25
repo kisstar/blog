@@ -5,8 +5,11 @@ summary: 视频（英语：video, videogram）是泛指将一系列的静态影�
 author: Kisstar
 location: 北京
 date: 2022-03-17
-tags:
-  - Video
+categoryKeys:
+  - av
+tagKeys:
+  - video
+outline: deep
 ---
 
 <img style="width: 100%; height: 350px;" src="/images/video/basic/video-boy.jpeg" alt="Video Boy">

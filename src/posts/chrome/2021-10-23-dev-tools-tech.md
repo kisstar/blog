@@ -5,9 +5,12 @@ summary: 作为 Chrome 浏览器中的 Web 开发工具，Chrome DevTools 提供
 author: Kisstar
 location: 北京
 date: 2021-10-23
-tags:
-  - Chrome
-  - DevTools
+categoryKeys:
+  - freebie
+tagKeys:
+  - chrome
+  - devtools
+outline: deep
 ---
 
 ![Chrome DevTools Tech](/images/chrome/chrome-dev-tools-tech.png)

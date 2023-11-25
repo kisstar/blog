@@ -1,3 +1,6 @@
+import categoryInfo from './categoryInfo';
+import tagInfo from './tagInfo';
+
 export default {
   title: "Kisstar's 博客",
   locales: {
@@ -40,6 +43,8 @@ export default {
         rel: 'noopener noreferrer'
       }
     ],
+    categoryInfo,
+    tagInfo,
     // 获取在原文编辑地址
     editLink: {
       pattern: 'https://github.com/kisstar/blog/edit/next/src/:path',

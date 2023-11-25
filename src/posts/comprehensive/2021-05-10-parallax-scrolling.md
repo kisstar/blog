@@ -5,8 +5,11 @@ summary: 视差滚动（Parallax Scrolling）是指让多层背景以不同的�
 author: Kisstar
 location: 北京
 date: 2021-05-10
-tags:
-  - CSS
+categoryKeys:
+  - frontend
+tagKeys:
+  - css
+outline: deep
 ---
 
 ![parallax scrolling](/images/comprehensive/parallax-scrolling.png)

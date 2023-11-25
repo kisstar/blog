@@ -5,9 +5,12 @@ summary: 在 Video.js 中，日志管理主要是提供了前缀和等级配置�
 author: Kisstar
 location: 北京
 date: 2022-04-28
-tags:
-  - Video
-  - Video.js
+categoryKeys:
+  - av
+tagKeys:
+  - video
+  - videojs
+outline: deep
 ---
 
 <img style="width: 100%; height: 350px;" src="/images/video/videojs/videojs-logger.png" alt="Videojs Logger">

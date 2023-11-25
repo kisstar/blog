@@ -5,9 +5,12 @@ summary: ModalDialog 组件是 Video.js 核心的一部分，它为完整的播�
 author: Kisstar
 location: 北京
 date: 2022-05-05
-tags:
-  - Video
-  - Video.js
+categoryKeys:
+  - av
+tagKeys:
+  - video
+  - videojs
+outline: deep
 ---
 
 <img style="width: 100%; height: 350px;" src="/images/video/videojs/videojs-modal.png" alt="Videojs Modal">

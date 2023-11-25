@@ -5,8 +5,11 @@ summary: 每一条提交信息都应该是有意义的，遵循规范的友好�
 author: Kisstar
 location: 北京
 date: 2021-06-14
-tags:
-  - Git
+categoryKeys:
+  - freebie
+tagKeys:
+  - git
+outline: deep
 ---
 
 <img
