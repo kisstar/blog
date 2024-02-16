@@ -26,6 +26,7 @@
     "commitizen": "^4.2.5",
     "husky": "^8.0.1",
     "markdown-it-mathjax3": "^4.3.2",
+    "posthub-vitepress-theme": "^0.0.1",
     "vitepress": "1.0.0-rc.24"
   },
   "license": "MIT"

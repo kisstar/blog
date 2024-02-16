@@ -1,26 +1,38 @@
-import { nav,sidebar } from './nav'
+import { defineConfigWithTheme } from 'vitepress';
+import type { Config as PosthubThemeConfig } from 'posthub-vitepress-theme';
+import posthubThemeConfig from 'posthub-vitepress-theme/config';
+import { nav, sidebar } from './nav';
 import categoryInfo from './categoryInfo';
 import tagInfo from './tagInfo';
 
-export default {
+export default defineConfigWithTheme<PosthubThemeConfig>({
+  extends: posthubThemeConfig,
+  lang: 'zh-CN',
   title: "Kisstar's 博客",
   description: "Kisstar's 的个人博客站点。",
-  locales: {
-    '/': {
-      lang: 'zh-CN'
-    }
-  },
   // 主题配置
   themeConfig: {
     // 导航栏的配置
     nav,
     sidebar,
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/kisstar' }
-    ],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/kisstar' }],
     // 分类和标签配置
     categoryInfo,
     tagInfo,
+    postInfo: {
+      '2023-11-05-vite': {
+        hot: true
+      },
+      '2023-04-16-electron-events': {
+        hot: true
+      },
+      '2021-05-09-egg': {
+        hot: true
+      },
+      '2019-12-16-promise': {
+        hot: true
+      },
+    },
     // 获取在原文编辑地址
     editLink: {
       pattern: 'https://github.com/kisstar/blog/edit/next/src/:path',
@@ -35,14 +47,7 @@ export default {
       copyright: 'Copyright © 2023-present Kisstar'
     }
   },
-  rewrites: {
-    '(.*)/:year-:month-:day-:name(.*).md': ':year/:month/:day/:name.md'
-  },
-  ignoreDeadLinks: [
-    // ignore all localhost links
-    /^https?:\/\/localhost/,
-  ],
   markdown: {
     math: true
   }
-};
+});
