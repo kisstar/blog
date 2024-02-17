@@ -124,7 +124,7 @@ PCM 文件没有头部信息，全部是采样量化后的未压缩音频数据�
 
 不同的驱动程序对于多声道数据的排列方式可能稍有区别，下面是常用的声道排列地图：
 
-```plainte
+```plaintext
 2:  FL FR                     (stereo)
 3:  FL FR LFE                 (2.1 surround)
 4:  FL FR BL BR               (quad)
