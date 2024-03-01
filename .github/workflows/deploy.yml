@@ -2,7 +2,7 @@ name: deploy
 
 on:
   push:
-    branches: [master]
+    branches: [next]
     paths:
       - 'src/**'
 
@@ -13,6 +13,13 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
+      - name: Set git user information
+        run: |
+          git config user.name $USER_NAME
+          git config user.email $USER_EMAIL
+        env:
+          USER_NAME: Kisstar
+          USER_EMAIL: dwh.chn@foxmail.com
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
@@ -20,6 +27,22 @@ jobs:
 
       - name: Install packages
         run: pnpm install
-
       - name: Builds the app for production
         run: pnpm run build
+
+      - name: Deploy with gh-pages for GitHub
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          repository-name: kisstar/kisstar.github.io
+          branch: master
+          folder: src/.vitepress/dist
+          token: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: Deploy with gh-pages for Gitee
+        uses: actions/git-pages-action@v1
+        with:
+          git-hosts: gitee.com
+          repository-name: dongwanhong/dongwanhong
+          branch: master
+          folder: src/.vitepress/dist
+          ssh_private_key: ${{ secrets.GITEE_SSH_PRIVATE_KEY }}
