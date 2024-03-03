@@ -39,7 +39,7 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN }}
 
       - name: Deploy with gh-pages for Gitee
-        uses: actions/git-pages-action@v1
+        uses: kisstar/git-pages-action@main
         with:
           git-hosts: gitee.com
           repository-name: dongwanhong/dongwanhong
