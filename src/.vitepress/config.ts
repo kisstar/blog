@@ -49,5 +49,10 @@ export default defineConfigWithTheme<PosthubThemeConfig>({
   },
   markdown: {
     math: true
+  },
+  vite: {
+    optimizeDeps: {
+      exclude: ['posthub-vitepress-theme']
+    }
   }
 });
