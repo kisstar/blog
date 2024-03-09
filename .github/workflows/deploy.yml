@@ -25,10 +25,11 @@ jobs:
         with:
           node-version: 18.x
 
-      - name: Install packages
-        run: pnpm install
       - name: Builds the app for production
-        run: pnpm run build
+        run: |
+          npm install -g pnpm
+          pnpm install
+          pnpm run build
 
       - name: Deploy with gh-pages for GitHub
         uses: JamesIves/github-pages-deploy-action@v4
