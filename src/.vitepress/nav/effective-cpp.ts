@@ -13,6 +13,10 @@ const effectiveCppSidebar: DefaultTheme.SidebarItem[] = [
   {
     text: '绝不在构造和析构过程中调用虚函数',
     link: '09-call-virtual-func.html'
+  },
+  {
+    text: '赋值运算符应返回自己的引用',
+    link: '10-assignment-operator.html'
   }
 ];
 
