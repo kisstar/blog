@@ -6,7 +6,8 @@ const effectiveCppSidebar: DefaultTheme.SidebarItem[] = [
   { text: '避免使用 #define', link: '02-avoid-define.html' },
   { text: '尽量使用 const', link: '03-use-const.html' },
   { text: '确定对象被初始化', link: '04-init-obj.html' },
-  { text: 'C++ 默认提供和调用的函数', link: '05-default-fun.html' }
+  { text: 'C++ 默认提供和调用的函数', link: '05-default-fun.html' },
+  { text: '明确拒绝生成不需要的函数', link: '06-refuse-explicitly.html' }
 ];
 
 export default effectiveCppSidebar;
