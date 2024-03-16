@@ -9,7 +9,11 @@ const effectiveCppSidebar: DefaultTheme.SidebarItem[] = [
   { text: 'C++ 默认提供和调用的函数', link: '05-default-fun.html' },
   { text: '明确拒绝生成不需要的函数', link: '06-refuse-explicitly.html' },
   { text: '为基态类声明 virtual 析构函数', link: '07-virtual-destructor.html' },
-  { text: '别让异常逃离析构函数', link: '08-destructor-exception.html' }
+  { text: '别让异常逃离析构函数', link: '08-destructor-exception.html' },
+  {
+    text: '绝不在构造和析构过程中调用虚函数',
+    link: '09-call-virtual-func.html'
+  }
 ];
 
 export default effectiveCppSidebar;
