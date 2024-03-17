@@ -17,6 +17,10 @@ const effectiveCppSidebar: DefaultTheme.SidebarItem[] = [
   {
     text: '赋值运算符应返回自己的引用',
     link: '10-assignment-operator.html'
+  },
+  {
+    text: '在赋值运算符中处理自我赋值',
+    link: '11-assignment-self.html'
   }
 ];
 

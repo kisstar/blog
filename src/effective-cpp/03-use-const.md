@@ -29,7 +29,7 @@ const Rational operator* (const Rational & lhs, const Rational &rhs); // 返回�
 
 // 正因为返回值是常量，所以下面的代码才会在编译期正常报错
 Rational a, b, c;
-if (a *b = C)
+if (a * b = C)
 {
 }
 ```
