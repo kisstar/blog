@@ -21,6 +21,10 @@ const effectiveCppSidebar: DefaultTheme.SidebarItem[] = [
   {
     text: '在赋值运算符中处理自我赋值',
     link: '11-assignment-self.html'
+  },
+  {
+    text: '完整拷贝对象',
+    link: '12-copy-object.html'
   }
 ];
 
