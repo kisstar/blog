@@ -6,7 +6,8 @@ const computerGraphics: DefaultTheme.SidebarItem[] = [
   { text: '图形软件', link: 'software.html' },
   { text: '图像是如何渲染到屏幕的', link: 'render2screen.html' },
   { text: '图形渲染管线', link: 'pipeline.html' },
-  { text: 'OpenGL 的图形渲染管线', link: 'opengl-pipeline.html' }
+  { text: 'OpenGL 的图形渲染管线', link: 'opengl-pipeline.html' },
+  { text: '绘制两个三角形', link: 'triangle.html' }
 ];
 
 export default computerGraphics;
