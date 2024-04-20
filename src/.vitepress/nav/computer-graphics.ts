@@ -10,7 +10,8 @@ const computerGraphics: DefaultTheme.SidebarItem[] = [
   { text: '绘制两个三角形', link: 'triangle.html' },
   { text: '纹理', link: 'texture.html' },
   { text: '变换', link: 'transformations.html' },
-  { text: '坐标系统', link: 'coordinate.html' }
+  { text: '坐标系统', link: 'coordinate.html' },
+  { text: '摄像机', link: 'camera.html' }
 ];
 
 export default computerGraphics;
