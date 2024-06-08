@@ -117,7 +117,7 @@ import { useEvents } from 'electron-events';
 const events = useEvents();
 
 // 监听主进程的 say_hi 事件
-events.on('main' /* 默认的主进程名称 */, 'say_hi', text => {
+events.on('main' /* 默认的主进程名称 */, 'say_hi', (text) => {
   console.log(text);
 });
 
@@ -140,7 +140,7 @@ import { useEvents } from 'electron-events';
 
 const events = useEvents();
 
-events.on('say_hi', text => {
+events.on('say_hi', (text) => {
   console.log(text);
 });
 
@@ -227,7 +227,7 @@ class IpcEvents {
 触发事件则相对要复杂些，因为我们需要让主进程和其它渲染进程也能收到通知。当在主进程中时，我们需要获取并遍历所有已知的窗口，然后将触发事件的来源窗口的具体触发的事件、参数传递过去：
 
 ```javascript
-BrowserWindow.getAllWindows().forEach(toWindow => {
+BrowserWindow.getAllWindows().forEach((toWindow) => {
   toWindow.webContents.send(EVENT_CENTER, {
     fromName: 'app' /* 触发事件的窗口名称 */,
     eventName: 'test' /* 触发的事件名 */,
@@ -291,7 +291,7 @@ class IpcEvents {
 此处大致的思路就是针对每个窗口创建一个唯一的事件名，然后将事件触发的来源、事件名和相应的参数一起发送给渲染进程：
 
 ```javascript
-BrowserWindow.getAllWindows().map(toWindow => {
+BrowserWindow.getAllWindows().map((toWindow) => {
   const handlerName = getUUID();
 
   toWindow.webContents.send(EVENT_CENTER, {
@@ -329,7 +329,7 @@ ipcRenderer.on(
 
 如你所见，当你使用 [electron-events](https://github.com/kisstar/electron-events) 进行事件通信时，你不关系进程相关的概念，只需要通过名称来进行指定触发和接受的对象，好比是在同一个进程中进行通信一样。
 
-![Electron events](/images/electron/electron-events-round.png" height="300)
+<img style=" height: 300px;" src="/images/electron/electron-events-round.png" alt="Electron events">
 
 目前，[electron-events](https://github.com/kisstar/electron-events) 模块的源码提供在 GitHub，可以当做是一种参考，欢迎大家优化使用。
 
