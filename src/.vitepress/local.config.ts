@@ -12,5 +12,17 @@ export default defineConfigWithTheme({
       message: 'Developed by Kisstar & Powered by VitePress.',
       copyright: 'Copyright © 2023-present Kisstar'
     }
-  }
+  },
+  ignoreDeadLinks: [
+    // ignore exact url "/playground"
+    '/playground',
+    // ignore all localhost links
+    /^https?:\/\/localhost/,
+    // ignore all links include "/repl/""
+    /\/repl\//,
+    // custom function, ignore all links include "ignore"
+    (url) => {
+      return url.toLowerCase().includes('ignore');
+    }
+  ]
 });
