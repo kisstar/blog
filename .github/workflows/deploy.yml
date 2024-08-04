@@ -38,12 +38,3 @@ jobs:
           branch: master
           folder: src/.vitepress/dist
           token: ${{ secrets.ACCESS_TOKEN }}
-
-      - name: Deploy with gh-pages for Gitee
-        uses: kisstar/git-pages-action@main
-        with:
-          git-hosts: gitee.com
-          repository-name: dongwanhong/dongwanhong
-          branch: master
-          folder: src/.vitepress/dist
-          ssh_private_key: ${{ secrets.GITEE_SSH_PRIVATE_KEY }}
