@@ -3,6 +3,11 @@ import computerGraphics from './computer-graphics';
 
 export const nav = [
   {
+    text: '博文',
+    link: '/posts',
+    activeMatch: '/posts'
+  },
+  {
     text: '专栏',
     items: [
       {
@@ -22,16 +27,16 @@ export const nav = [
     link: 'https://kisstar.github.io/notebook/',
     target: '_blank'
   },
-  {
-    text: '思否',
-    link: 'https://segmentfault.com/u/dongwanhong/',
-    target: '_blank'
-  },
-  {
-    text: '掘金',
-    link: 'https://juejin.cn/user/870468942050759',
-    target: '_blank'
-  },
+  // {
+  //   text: '思否',
+  //   link: 'https://segmentfault.com/u/dongwanhong/',
+  //   target: '_blank'
+  // },
+  // {
+  //   text: '掘金',
+  //   link: 'https://juejin.cn/user/870468942050759',
+  //   target: '_blank'
+  // },
   // {
   //   text: '简历',
   //   link: 'https://dongwanhong.gitee.io/resume/',
