@@ -19,7 +19,12 @@ export const nav = [
   },
   {
     text: '笔记',
-    link: 'https://dongwanhong.gitee.io/notebook/',
+    link: 'https://kisstar.github.io/notebook/',
+    target: '_blank'
+  },
+  {
+    text: '思否',
+    link: 'https://segmentfault.com/u/dongwanhong/',
     target: '_blank'
   },
   {
@@ -27,11 +32,6 @@ export const nav = [
     link: 'https://juejin.cn/user/870468942050759',
     target: '_blank'
   },
-  {
-    text: '思否',
-    link: 'https://segmentfault.com/u/dongwanhong/',
-    target: '_blank'
-  }
   // {
   //   text: '简历',
   //   link: 'https://dongwanhong.gitee.io/resume/',

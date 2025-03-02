@@ -120,6 +120,8 @@ Volar 是专为 Vue 3 构建的语言支持插件。它基于 `@vue/reactivity` 
 
 ## 参考
 
+- [Visual Studio Code](https://code.visualstudio.com/)
+
 [vi]: http://aka.ms/vscodevim
 [vscode_vim_github]: https://github.com/VSCodeVim/Vim
 [vscode_live_server]: https://github.com/ritwickdey/vscode-live-server

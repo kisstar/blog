@@ -1,12 +1,12 @@
 import { defineConfigWithTheme } from 'vitepress';
-import type { Config as PosthubThemeConfig } from 'posthub-vitepress-theme';
-import posthubThemeConfig from 'posthub-vitepress-theme/config';
+import type { Config as PostHubThemeConfig } from 'posthub-vitepress-theme';
+import postHubThemeConfig from 'posthub-vitepress-theme/config';
 import { nav, sidebar } from './nav';
 import categoryInfo from './categoryInfo';
 import tagInfo from './tagInfo';
 
-export default defineConfigWithTheme<PosthubThemeConfig>({
-  extends: posthubThemeConfig,
+export default defineConfigWithTheme<PostHubThemeConfig>({
+  extends: postHubThemeConfig,
   lang: 'zh-CN',
   title: "Kisstar's 博客",
   description: "Kisstar's 的个人博客站点。",
