@@ -1,5 +1,6 @@
 import effectiveCpp from './effective-cpp';
 import computerGraphics from './computer-graphics';
+import CSSSidebar from './css';
 
 export const nav = [
   {
@@ -19,6 +20,16 @@ export const nav = [
         text: '计算机图形学',
         link: '/computer-graphics/',
         activeMatch: '/computer-graphics/'
+      }
+    ]
+  },
+  {
+    text: 'Crash Course',
+    items: [
+      {
+        text: 'CSS',
+        link: '/css/',
+        activeMatch: '/css/'
       }
     ]
   },
@@ -47,6 +58,7 @@ export const nav = [
 
 export const sidebar = {
   '/effective-cpp/': { base: '/effective-cpp/', items: effectiveCpp },
+  '/css/': { base: '/css/', items: CSSSidebar },
   '/computer-graphics/': {
     base: '/computer-graphics/',
     items: computerGraphics

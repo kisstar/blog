@@ -1,8 +1,8 @@
 ---
 layout: home
 
-title: Kisstar
-titleTemplate: Blog
+title: Kisstar's 博客
+titleTemplate: Kisstar's 博客
 
 hero:
   name: Kisstar
