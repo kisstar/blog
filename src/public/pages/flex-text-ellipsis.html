@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本中间显示省略号</title>
+    <style>
+        .k-filename {
+            display: flex;
+            min-width: 0;
+        }
+
+        .k-filename-base {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .k-filename-extension {
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="k-filename">
+        <span class="k-filename-base">这个文件拥有一个非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常长的文件名.</span>
+        <span class="k-filename-extension">pdf</span>
+    </div>
+</body>
+
+</html>
