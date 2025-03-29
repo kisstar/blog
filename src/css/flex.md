@@ -1,3 +1,7 @@
+---
+outline: [2, 3]
+---
+
 # Flex 布局
 
 Flex 布局背后的主要思想是让容器能够改变其项目的宽度/高度（和顺序）以最好地填充可用空间（主要是为了适应各种显示设备和屏幕尺寸）。Flex 容器扩展项目以填充可用的可用空间，或缩小项目以防止溢出。
@@ -42,7 +46,11 @@ Flex 布局背后的主要思想是让容器能够改变其项目的宽度/高�
   - `flex-basis`：定义了在分配多余空间之前，项目占据的主轴空间（main size）。
 - `order`：定义项目的排列顺序。
 
-## 示例
+## 属性效果展示
+
+![Flexbox properties](/images/image.png)
+
+## 用例展示
 
 ### 文本中间显示省略号
 
@@ -50,6 +58,69 @@ Flex 布局背后的主要思想是让容器能够改变其项目的宽度/高�
 
 <ph-demo-preview src="/pages/flex-text-ellipsis.html" height="100px"></ph-demo-preview>
 
+::: code-group
+
+```html
+<div class="k-filename">
+    <span class="k-filename-base">这个文件拥有一个非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常长的文件名.</span>
+    <span class="k-filename-extension">pdf</span>
+</div>
+```
+
+```css
+.k-filename {
+    display: flex;
+}
+
+.k-filename-base {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.k-filename-extension {
+    flex-shrink: 0;
+}
+```
+
+:::
+
+### 中间按需显示省略号
+
+当容器中包含 2 个项目时，且前者包含了一段不知道长度的文本，那么并可以通过下面的方式让其按需显示省略号。
+
+<ph-demo-preview src="/pages/flex-text-ellipsis2.html" height="100px"></ph-demo-preview>
+
+::: code-group
+
+```html
+<div class="k-container">
+    <span class="k-text">这里有一段很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的文案</span>
+    <span class="k-other">这里是其它内容</span>
+</div>
+```
+
+```css
+.k-container {
+    display: flex;
+}
+
+.k-text {
+    flex: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.k-other {
+    width: 200px;
+    background: lightgreen;
+}
+```
+
+:::
+
 ## 参考
 
+- [弹性盒子 - 学习 Web 开发 | MDN](https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Core/CSS_layout/Flexbox)
 - [CSS Flexbox Layout Guide | CSS-Tricks](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
