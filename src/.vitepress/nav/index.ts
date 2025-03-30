@@ -1,3 +1,4 @@
+import designPattern from './design-pattern';
 import effectiveCpp from './effective-cpp';
 import computerGraphics from './computer-graphics';
 import CSSSidebar from './css';
@@ -11,6 +12,11 @@ export const nav = [
   {
     text: '专栏',
     items: [
+      {
+        text: '设计模式',
+        link: '/design-pattern/',
+        activeMatch: '/design-pattern/'
+      },
       {
         text: 'Effective C++',
         link: '/effective-cpp/',
@@ -57,6 +63,7 @@ export const nav = [
 ];
 
 export const sidebar = {
+  '/design-pattern/': { base: '/design-pattern/', items: designPattern },
   '/effective-cpp/': { base: '/effective-cpp/', items: effectiveCpp },
   '/css/': { base: '/css/', items: CSSSidebar },
   '/computer-graphics/': {
