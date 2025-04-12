@@ -7,6 +7,7 @@ const designPattern: DefaultTheme.SidebarItem[] = [
     { text: '设计原则', link: 'design-principle.html' },
     { text: '简单工厂模式', link: 'simple-factory.html' },
     { text: '工厂方法模式', link: 'factory-method.html' },
+    { text: '抽象工厂模式', link: 'abstract-factory.html' },
 ];
 
 export default designPattern;
