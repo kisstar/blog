@@ -6,6 +6,7 @@ const designPattern: DefaultTheme.SidebarItem[] = [
     { text: 'UML 类图和时序图', link: 'uml-diagram.html' },
     { text: '设计原则', link: 'design-principle.html' },
     { text: '简单工厂模式', link: 'simple-factory.html' },
+    { text: '工厂方法模式', link: 'factory-method.html' },
 ];
 
 export default designPattern;

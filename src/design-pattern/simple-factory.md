@@ -25,10 +25,13 @@ class MilkTeaFactory {
       case 'FruitTea':
         return new FruitTea();
       default:
-        return null;
+        throw new Error('Invalid class name');
     }
   }
 }
+
+// usage
+const bubbleTea = MilkTeaFactory.getInstance('BubbleTea');
 ```
 
 ## 优缺点
