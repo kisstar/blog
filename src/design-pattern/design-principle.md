@@ -104,7 +104,7 @@ class C implements BInterface {
 }
 
 class A {
-  constructor(b) {
+  constructor(b: BInterface) {
     this.b = b;
   }
 
