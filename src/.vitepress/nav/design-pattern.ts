@@ -10,6 +10,7 @@ const designPattern: DefaultTheme.SidebarItem[] = [
     { text: '抽象工厂模式', link: 'abstract-factory.html' },
     { text: '桥接模式', link: 'bridge.html' },
     { text: '适配器模式', link: 'adapter.html' },
+    { text: '代理模式', link: 'proxy.html' },
 ];
 
 export default designPattern;
