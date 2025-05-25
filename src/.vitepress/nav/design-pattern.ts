@@ -11,6 +11,7 @@ const designPattern: DefaultTheme.SidebarItem[] = [
     { text: '桥接模式', link: 'bridge.html' },
     { text: '适配器模式', link: 'adapter.html' },
     { text: '代理模式', link: 'proxy.html' },
+    { text: '中介者模式', link: 'mediator.html' },
 ];
 
 export default designPattern;
