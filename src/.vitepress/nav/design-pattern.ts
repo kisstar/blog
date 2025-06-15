@@ -13,6 +13,7 @@ const designPattern: DefaultTheme.SidebarItem[] = [
     { text: '代理模式', link: 'proxy.html' },
     { text: '中介者模式', link: 'mediator.html' },
     { text: '访问者模式', link: 'visitor.html' },
+    { text: '组合模式', link: 'composite.html' },
 ];
 
 export default designPattern;
