@@ -13,3 +13,5 @@
 ## 参考
 
 - [图说设计模式 — Graphic Design Patterns](https://design-patterns.readthedocs.io/zh-cn/latest/)
+- [设计模式 | 菜鸟教程](https://www.runoob.com/design-pattern/design-pattern-tutorial.html)
+- [常用设计模式有哪些？](https://refactoringguru.cn/design-patterns)
