@@ -33,7 +33,8 @@ const designPattern: DefaultTheme.SidebarItem[] = [
       { text: '责任链模式', link: 'chain-of-responsibility.html' },
       { text: '中介者模式', link: 'mediator.html' },
       { text: '访问者模式', link: 'visitor.html' },
-      { text: '状态模式', link: 'state.html' }
+      { text: '状态模式', link: 'state.html' },
+      { text: '命令模式', link: 'command.html' }
     ]
   }
 ];
