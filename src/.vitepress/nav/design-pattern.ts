@@ -35,7 +35,8 @@ const designPattern: DefaultTheme.SidebarItem[] = [
       { text: '中介者模式', link: 'mediator.html' },
       { text: '访问者模式', link: 'visitor.html' },
       { text: '状态模式', link: 'state.html' },
-      { text: '命令模式', link: 'command.html' }
+      { text: '命令模式', link: 'command.html' },
+      { text: '迭代器模式', link: 'iterator.html' }
     ]
   }
 ];
