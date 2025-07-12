@@ -26,7 +26,8 @@ const designPattern: DefaultTheme.SidebarItem[] = [
       { text: '适配器模式', link: 'adapter.html' },
       { text: '代理模式', link: 'proxy.html' },
       { text: '组合模式', link: 'composite.html' },
-      { text: '享元模式', link: 'flyweight.html' }
+      { text: '享元模式', link: 'flyweight.html' },
+      { text: '装饰器模式', link: 'decorator.html' }
     ]
   },
   {
