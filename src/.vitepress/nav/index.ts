@@ -2,6 +2,7 @@ import designPattern from './design-pattern';
 import effectiveCpp from './effective-cpp';
 import computerGraphics from './computer-graphics';
 import CSSSidebar from './css';
+import demoSidebar from './demo';
 
 export const nav = [
   {
@@ -40,10 +41,21 @@ export const nav = [
     ]
   },
   {
-    text: '笔记',
-    link: 'https://kisstar.github.io/notebook/',
-    target: '_blank'
-  },
+    text: '其它',
+    items: [
+      {
+        text: 'Demo',
+        link: '/demo/',
+        activeMatch: '/demo/'
+      },
+      {
+        text: '笔记',
+        link: 'https://kisstar.github.io/notebook/',
+        target: '_blank'
+      }
+    ]
+  }
+
   // {
   //   text: '思否',
   //   link: 'https://segmentfault.com/u/dongwanhong/',
@@ -66,6 +78,7 @@ export const sidebar = {
   '/design-pattern/': { base: '/design-pattern/', items: designPattern },
   '/effective-cpp/': { base: '/effective-cpp/', items: effectiveCpp },
   '/css/': { base: '/css/', items: CSSSidebar },
+  '/demo/': { base: '/demo/', items: demoSidebar },
   '/computer-graphics/': {
     base: '/computer-graphics/',
     items: computerGraphics

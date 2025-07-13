@@ -56,7 +56,7 @@ Flex 布局背后的主要思想是让容器能够改变其项目的宽度/高�
 
 通常使用 text-overflow 可以相当容易地用省略号截断一行文本。但是，该截断发生在文本行的末尾。如果您想在中间截断内容怎么办？
 
-<ph-demo-preview src="/pages/flex-text-ellipsis.html" height="100px"></ph-demo-preview>
+<ph-demo-preview src="/pages/css/flex-text-ellipsis.html" height="100px"></ph-demo-preview>
 
 ::: code-group
 
@@ -89,7 +89,7 @@ Flex 布局背后的主要思想是让容器能够改变其项目的宽度/高�
 
 当容器中包含 2 个项目时，且前者包含了一段不知道长度的文本，那么并可以通过下面的方式让其按需显示省略号。
 
-<ph-demo-preview src="/pages/flex-text-ellipsis2.html" height="100px"></ph-demo-preview>
+<ph-demo-preview src="/pages/css/flex-text-ellipsis2.html" height="100px"></ph-demo-preview>
 
 ::: code-group
 
