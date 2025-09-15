@@ -3,6 +3,7 @@ import effectiveCpp from './effective-cpp';
 import computerGraphics from './computer-graphics';
 import CSSSidebar from './css';
 import demoSidebar from './demo';
+import vueSidebar from './vue';
 
 export const nav = [
   {
@@ -37,7 +38,12 @@ export const nav = [
         text: 'CSS',
         link: '/css/',
         activeMatch: '/css/'
-      }
+      },
+      {
+        text: 'Vue',
+        link: '/vue/',
+        activeMatch: '/vue/'
+      },
     ]
   },
   {
@@ -78,6 +84,7 @@ export const sidebar = {
   '/design-pattern/': { base: '/design-pattern/', items: designPattern },
   '/effective-cpp/': { base: '/effective-cpp/', items: effectiveCpp },
   '/css/': { base: '/css/', items: CSSSidebar },
+  '/vue/': { base: '/vue/', items: vueSidebar },
   '/demo/': { base: '/demo/', items: demoSidebar },
   '/computer-graphics/': {
     base: '/computer-graphics/',
