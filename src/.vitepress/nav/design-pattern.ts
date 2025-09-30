@@ -40,7 +40,8 @@ const designPattern: DefaultTheme.SidebarItem[] = [
       { text: '状态模式', link: 'state.html' },
       { text: '命令模式', link: 'command.html' },
       { text: '迭代器模式', link: 'iterator.html' },
-      { text: '备忘录模式', link: 'memento.html' }
+      { text: '备忘录模式', link: 'memento.html' },
+      { text: '解释器模式', link: 'interpreter.html' },
     ]
   }
 ];
