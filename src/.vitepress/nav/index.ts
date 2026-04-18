@@ -2,6 +2,7 @@ import designPattern from './design-pattern';
 import effectiveCpp from './effective-cpp';
 import computerGraphics from './computer-graphics';
 import CSSSidebar from './css';
+import JSSidebar from './js';
 import demoSidebar from './demo';
 import vueSidebar from './vue';
 
@@ -40,10 +41,15 @@ export const nav = [
         activeMatch: '/css/'
       },
       {
+        text: 'JavaScript',
+        link: '/js/',
+        activeMatch: '/js/'
+      },
+      {
         text: 'Vue',
         link: '/vue/',
         activeMatch: '/vue/'
-      },
+      }
     ]
   },
   {
@@ -84,6 +90,7 @@ export const sidebar = {
   '/design-pattern/': { base: '/design-pattern/', items: designPattern },
   '/effective-cpp/': { base: '/effective-cpp/', items: effectiveCpp },
   '/css/': { base: '/css/', items: CSSSidebar },
+  '/js/': { base: '/js/', items: JSSidebar },
   '/vue/': { base: '/vue/', items: vueSidebar },
   '/demo/': { base: '/demo/', items: demoSidebar },
   '/computer-graphics/': {

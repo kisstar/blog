@@ -1,5 +1,6 @@
 {
   "markdown.copyFiles.destination": {
     "**/*": "${documentWorkspaceFolder}/src/public/images/${fileName}"
-  }
+  },
+  "editor.formatOnSave": true
 }
